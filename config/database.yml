@@ -4,21 +4,15 @@ development:
   encoding: unicode
   database: dol-challenge_development
   pool: 5
-  username: dol-challenge
-  password:
 
 test:
   adapter: postgresql
   encoding: unicode
   database: dol-challenge_test
   pool: 5
-  username: dol-challenge
-  password:
 
 production:
   adapter: postgresql
   encoding: unicode
   database: dol-challenge_production
   pool: 5
-  username: dol-challenge
-  password:
