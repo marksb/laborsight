@@ -9,6 +9,8 @@ describe Address do
   it { should validate_presence_of(:state) }
   it { should validate_presence_of(:zip) }
 
+  it { should callback(:geocode).before(:validation) }
+
   it { should ensure_length_of(:state).is_equal_to(2) }
   it { should ensure_inclusion_of(:zip).in_range(10000..99999) }
   it { should_not allow_value('non-digit').for(:zip) }
@@ -17,5 +19,7 @@ describe Address do
   it { should allow_mass_assignment_of(:city) }
   it { should allow_mass_assignment_of(:state) }
   it { should allow_mass_assignment_of(:zip) }
+  it { should allow_mass_assignment_of(:latitude) }
+  it { should allow_mass_assignment_of(:longitude) }
 
 end
