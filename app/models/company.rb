@@ -1,4 +1,6 @@
 class Company < ActiveRecord::Base
+  belongs_to :industry
+  belongs_to :address
 
   validates_presence_of :case_id, :trade_name
 
