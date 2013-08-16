@@ -5,6 +5,9 @@ class CreateAddresses < ActiveRecord::Migration
       t.string  :city
       t.string  :state
       t.integer :zip
+      t.float :latitude
+      t.float :longitude
+
       t.belongs_to :company
     end
   end
