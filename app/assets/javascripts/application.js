@@ -3,5 +3,4 @@
 //= require_tree .
 
 $(document).ready(function(){
-	alert("this");
 });
