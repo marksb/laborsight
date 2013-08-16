@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe Company do
 
+  it { should belong_to(:industry) }
+  it { should belong_to(:address) }
+
   it { should validate_presence_of(:case_id) }
   it { should validate_presence_of(:trade_name) }
 
