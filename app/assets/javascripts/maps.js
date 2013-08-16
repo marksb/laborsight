@@ -8,19 +8,19 @@ $(document).ready(function(){
                    "230 West Kinzie Street Chicago, IL 60654", 
                    "400 North Wells Street Chicago, IL 60654"]
 
-  function initialize() {
+  var gmap = {
+  initialize: function initialize() {
     geocoder = new google.maps.Geocoder();
     var myOptions = {
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-    setUserLocation(map);
-    dropPins(addresses, map);
-    // codeAddress(map);
-    }
+    this.setUserLocation(map);
+    this.dropPins(addresses, map);
+    },
 
-    function setUserLocation(map) {
+    setUserLocation: function setUserLocation(map) {
     // Try W3C Geolocation (Preferred)
       if(navigator.geolocation) {
         browserSupportFlag = true;
@@ -36,8 +36,9 @@ $(document).ready(function(){
       browserSupportFlag = false;
       handleNoGeolocation(browserSupportFlag);
     }
+  },
     
-    function handleNoGeolocation(errorFlag) {
+    handleNoGeoLocation: function handleNoGeolocation(errorFlag) {
       if (errorFlag == true) {
         alert("Geolocation service failed.");
         initialLocation = newyork;
@@ -46,10 +47,9 @@ $(document).ready(function(){
         initialLocation = siberia;
       }
       map.setCenter(initialLocation);
-    }
-}
+    },
 
-    function codeAddress(address, map) {
+    codeAddress: function codeAddress(address, map) {
       // var address = document.getElementById('address').value;
       // address = "351 West Hubbard, Chicago, IL, 60654"
       geocoder.geocode( { 'address': address}, function(results, status) {
@@ -63,16 +63,18 @@ $(document).ready(function(){
           alert('Geocode was not successful for the following reason: ' + status);
         }
       });
-    }
+    },
 
-    function dropPins(addresses, map) {
+    dropPins: function dropPins(addresses, map) {
       for (var i=0; i < addresses.length; i++)
       { 
-      codeAddress(addresses[i], map);
+        this.codeAddress(addresses[i], map);
       }
-    }
-    
-  google.maps.event.addDomListener(window, 'load', initialize);
+    },
+  }
+
+  gmap.initialize();
+  // google.maps.event.addDomListener(window, 'load', gmap.initialize);
 });
   
 
