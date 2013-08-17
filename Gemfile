@@ -24,11 +24,16 @@ gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
 
+# Location Geocoding
 gem 'geocoder'
 
 gem 'json'
 gem 'ruby-hmac'
 gem 'always_verify_ssl_certificates'
+
+# Foursquare API
+gem "typhoeus"
+gem "quimby"
 
 group :development, :test do
   gem 'rspec-rails'
