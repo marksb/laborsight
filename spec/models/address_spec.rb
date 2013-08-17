@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Address do
 
-  it { should belong_to(:company) }
+  it { should have_many(:companies) }
 
   it { should validate_presence_of(:street) }
   it { should validate_presence_of(:city) }
