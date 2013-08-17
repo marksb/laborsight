@@ -14,6 +14,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 
+
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
@@ -23,6 +24,10 @@ gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
 
+gem 'jquery-rails'
+gem 'json'
+gem 'ruby-hmac'
+gem 'always_verify_ssl_certificates'
 
 group :development, :test do
   gem 'rspec-rails'
