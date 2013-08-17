@@ -24,6 +24,9 @@ gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
 
+gem 'geocoder'
+
+
 gem 'jquery-rails'
 gem 'json'
 gem 'ruby-hmac'
@@ -37,11 +40,16 @@ group :development, :test do
   gem 'spork'
   gem 'jasmine-rails'
   gem 'binding_of_caller'
+  gem 'debugger'
+  gem 'pry'
 end
 
 group :test do
+  gem 'pry'
+  gem 'debugger'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem "shoulda-callback-matchers", "=0.2.0"
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
@@ -59,6 +67,3 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
