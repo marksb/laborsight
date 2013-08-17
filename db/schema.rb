@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20130816054206) do
     t.integer "zip"
     t.float   "latitude"
     t.float   "longitude"
-    t.integer "company_id"
   end
 
   create_table "companies", :force => true do |t|
@@ -40,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20130816054206) do
     t.float    "flsa_mw_bw_atp_amt"
     t.float    "flsa_ot_bw_atp_amt"
     t.float    "flsa_15a3_bw_atp_amt"
+    t.integer  "address_id"
+    t.integer  "industry_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end

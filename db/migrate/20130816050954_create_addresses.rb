@@ -7,8 +7,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.integer :zip
       t.float :latitude
       t.float :longitude
-
-      t.belongs_to :company
     end
   end
 

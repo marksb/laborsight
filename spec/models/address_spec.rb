@@ -12,7 +12,9 @@ describe Address do
   it { should callback(:geocode).before(:validation) }
 
   it { should ensure_length_of(:state).is_equal_to(2) }
-  it { should ensure_inclusion_of(:zip).in_range(10000..99999) }
+
+  it { should ensure_inclusion_of(:zip).in_range(00001..99999) }
+
   it { should_not allow_value('non-digit').for(:zip) }
 
   it { should allow_mass_assignment_of(:street) }

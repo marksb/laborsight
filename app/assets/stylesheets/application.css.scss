@@ -4,3 +4,13 @@
 /*
  *= require_self
 */
+
+// Base Elements //
+html { height: 100% }
+body { height: 100%; width: 100%; margin: 0; padding: 0 }
+
+// Map //
+#map-canvas { height: 100%}
+#side-bar { height: 100%;
+            width: 50%;
+            float: left}
