@@ -23,7 +23,6 @@ var MapView = {
     var that = this;
 
     $.get('/companies/data', bounds, function(response) {
-
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
         that.renderMarker(company);
@@ -40,6 +39,7 @@ var MapView = {
     google.maps.event.addListener(marker, 'click', function() {
       var companyData = "<div>" + company['street'] + "</div>";
       $("body").append(companyData);
+      alert(company.trade_name);
       console.log(company);
     });
   },
