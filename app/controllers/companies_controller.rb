@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 
   def data
     center = [params[:center][:lat], params[:center][:lng,]]
-    box = Geocoder::Calculations.bounding_box(center, 200)
+    box = Geocoder::Calculations.bounding_box(center, 500)
     @addresses = Address.within_bounding_box(box).includes({companies: :industry})
     companies = []
 
@@ -24,12 +24,12 @@ class CompaniesController < ApplicationController
                    flsa_mw_bw_atp_amt: company.flsa_mw_bw_atp_amt,
                    flsa_ot_bw_atp_amt: company.flsa_ot_bw_atp_amt,
                    flsa_15a3_bw_atp_amt: company.flsa_15a3_bw_atp_amt,
-                   street: company.address.street,
-                   city: company.address.city,
-                   state: company.address.state,
-                   zip: company.address.zip,
-                   latitude: company.address.latitude,
-                   longitude: company.address.longitude,
+                   street: address.street,
+                   city: address.city,
+                   state: address.state,
+                   zip: address.zip,
+                   latitude: address.latitude,
+                   longitude: address.longitude,
                    naic_code: company.industry.naic_code,
                    naic_code_description: company.industry.naic_code_description
                   }
