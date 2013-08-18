@@ -4,8 +4,7 @@ class CompaniesController < ApplicationController
     params[:lat]
     params[:lng]
 
-    @addresses = Address.all
-
+    @addresses = Address.includes({companies: :industry})
     companies = []
 
     @addresses.each do |address|
@@ -28,6 +27,7 @@ class CompaniesController < ApplicationController
                    flsa_15a3_bw_atp_amt: company.flsa_15a3_bw_atp_amt,
                    street: company.address.street,
                    city: company.address.city,
+                   state: company.address.state,
                    zip: company.address.zip,
                    latitude: company.address.latitude,
                    longitude: company.address.longitude,
