@@ -28,19 +28,28 @@ var MapView = {
         that.renderMarker(company);
       }
     });
+    that.startMarkerManager();
   },
   renderMarker: function(company) {
     var that = this;
+    this.markers = []
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
-      map: that.map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
       that.openSideBar(company);
-      console.log(company);
     });
+
+    this.markers.push(marker);
   },
+
+  startMarkerManager: function(){
+    var that = this; 
+    markerManager = new MarkerManager(that.map);
+    MarkerManager.addMarkers(that.markers(1000), 15);
+    MarkerManager.refresh();
+  }, 
 
   openSideBar: function(company) {
     var that = this;
