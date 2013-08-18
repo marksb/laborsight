@@ -1,20 +1,22 @@
 require 'csv'
 require 'date'
+require 'geocoder'
 
 OLDEST_DATE = Date.new(2008,1,1)  
 
-CSV.foreach("whd_whisard.csv", {:headers => true, :header_converters => :symbol}) do |row|
+CSV.foreach("whd_whisard_.csv", {:headers => true, :header_converters => :symbol}) do |row|
   if Date.parse(row[:findings_start_date]) > OLDEST_DATE
-
-    industry = Industry.find_or_create_by_naic_code(row[:naic_cd])
-    industry.naic_code_description = row[:naics_code_description]
-    industry.save
 
     address = Address.create!(street: row[:street_addr_1_txt],
                    city: row[:cty_nm],
                    state: row[:st_cd],
                    zip: row[:zip_cd])
+
     address.save
+
+    industry = Industry.find_or_create_by_naic_code(row[:naic_cd])
+    industry.naic_code_description = row[:naics_code_description]
+    industry.save
 
     company = Company.create!(case_id: row[:case_id],
                    trade_name: row[:trade_nm],
@@ -37,6 +39,6 @@ CSV.foreach("whd_whisard.csv", {:headers => true, :header_converters => :symbol}
                    )
     company.save
 
-    sleep(3)
+    sleep(1)
   end
 end
