@@ -26,6 +26,7 @@ gem 'neat'
 
 # Location Geocoding
 gem 'geocoder'
+gem 'dstk'
 
 gem 'json'
 gem 'ruby-hmac'
