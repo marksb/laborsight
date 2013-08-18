@@ -63,8 +63,10 @@ var MapView = {
     var neLng = this.map.getBounds().getNorthEast().lng();
     var seLat = this.map.getBounds().getSouthWest().lat();
     var seLng = this.map.getBounds().getSouthWest().lng();
+    var centerLat = this.map.getCenter().lat();
+    var centerLng = this.map.getCenter().lng();
 
-    return {ne: {lat: neLat, lng: neLng}, sw: {lat: seLat, lng: seLng}};
+    return {ne: {lat: neLat, lng: neLng}, sw: {lat: seLat, lng: seLng}, center: {lat: centerLat, lng: centerLng} };
   },
   setUserLocation: function() {
     var that = this;
