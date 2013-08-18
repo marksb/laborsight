@@ -1,11 +1,14 @@
+require 'pry'
+
 class CompaniesController < ApplicationController
 
   def data
     params[:lat]
     params[:lng]
 
-    @addresses = Address.all
-
+    # @addresses = Address.all
+    @addresses = Address.includes(:companies)
+    binding.pry
     companies = []
 
     @addresses.each do |address|
@@ -28,6 +31,7 @@ class CompaniesController < ApplicationController
                    flsa_15a3_bw_atp_amt: company.flsa_15a3_bw_atp_amt,
                    street: company.address.street,
                    city: company.address.city,
+                   state: company.address.state,
                    zip: company.address.zip,
                    latitude: company.address.latitude,
                    longitude: company.address.longitude,

@@ -17,6 +17,8 @@ var MapView = {
     google.maps.event.addListener(this.map, 'bounds_changed', function() {
       that.getCompanies();
     });
+
+    // $("#side-bar").hide();
   },
   getCompanies: function() {
     var bounds = this.getTheBounds();
@@ -37,12 +39,26 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      var companyData = "<div>" + company['street'] + "</div>";
-      $("body").append(companyData);
-      alert(company.trade_name);
+      that.openSideBar(company);
       console.log(company);
     });
   },
+
+  openSideBar: function(company) {
+    var that = this;
+    // $("#side-bar").show();
+    var companyData = that.renderSideBar(company);
+    $("#side-bar").children().remove();
+    $("#side-bar").append(companyData);
+  },
+
+  renderSideBar: function(company) {
+    return $("<h1>" + company["trade_name"] + "</h1>" +
+             "<h2>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</h2>" +
+             "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
+             "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>");
+  },
+
   getTheBounds: function() {
     var bounds = this.map.getBounds();
 
