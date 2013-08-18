@@ -2,12 +2,13 @@ var MapView = {
 
   init: function() {
     var mapOptions = {
-        zoom: 10,
+        zoom: 5,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         scaleControlOptions: {
       }
     };
 
+    this.markers = [];
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
     // set map center
@@ -18,6 +19,7 @@ var MapView = {
       that.getCompanies();
     });
   },
+
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
@@ -25,31 +27,37 @@ var MapView = {
     $.get('/companies/data', bounds, function(response) {
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
-        that.renderMarker(company);
+        that.markers.push(that.renderMarker(company));
       }
     });
+    console.log(that.markers);
     that.startMarkerManager();
   },
+
   renderMarker: function(company) {
     var that = this;
-    this.markers = []
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(company["latitude"], company["longitude"]),
+      position: new google.maps.LatLng(company["latitude"], company["longitude"])
     });
 
     google.maps.event.addListener(marker, 'click', function() {
       that.openSideBar(company);
     });
+    return marker;
+  },
 
-    this.markers.push(marker);
+  makeRandomMarkerSample: function(markers) {
+    return markerBatch;
   },
 
   startMarkerManager: function(){
-    var that = this; 
+    var that = this;
     markerManager = new MarkerManager(that.map);
-    MarkerManager.addMarkers(that.markers(1000), 15);
-    MarkerManager.refresh();
-  }, 
+    google.maps.event.addListener(markerManager, 'loaded', function(){
+      markerManager.addMarkers(that.markers, 5); //from this array get random sample of 100
+      markerManager.refresh();
+    });
+  },
 
   openSideBar: function(company) {
     var that = this;
