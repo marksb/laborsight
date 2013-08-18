@@ -4,7 +4,6 @@ class CompaniesController < ApplicationController
     center = [params[:center][:lat], params[:center][:lng,]]
     box = Geocoder::Calculations.bounding_box(center, 200)
     @addresses = Address.within_bounding_box(box).includes({companies: :industry})
-    #@addresses = Address.includes({companies: :industry})
     companies = []
 
     @addresses.each do |address|
