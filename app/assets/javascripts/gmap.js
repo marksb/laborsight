@@ -15,6 +15,10 @@ var MapView = {
     this.setUserLocation();
     var that = this;
 
+    google.maps.event.addListener(this.map, 'idle', function() {
+      that.getCompanies();
+    });
+
     google.maps.event.addListener(this.map, 'bounds_changed', function() {
       that.getCompanies();
     });
@@ -46,7 +50,15 @@ var MapView = {
     return marker;
   },
 
-  makeRandomMarkerSample: function(markers) {
+  makeRandomMarkerSample: function(markers, size) {
+    var markerBatch = markers.slice(0), i = markers.length, min = i - size, temp, index;
+    while (i-- > min) {
+        index = Math.floor(i * Math.random());
+        temp = markerBatch[index];
+        markerBatch[index] = markerBatch[i];
+        markerBatch[i] = temp;
+    }
+    return markerBatch.slice(min);
     return markerBatch;
   },
 
@@ -54,7 +66,8 @@ var MapView = {
     var that = this;
     markerManager = new MarkerManager(that.map);
     google.maps.event.addListener(markerManager, 'loaded', function(){
-      markerManager.addMarkers(that.markers, 5); //from this array get random sample of 100
+      //first number represents size of marker sample, second number zoom level
+      markerManager.addMarkers(that.makeRandomMarkerSample(that.markers, 2), 5);
       markerManager.refresh();
     });
   },
