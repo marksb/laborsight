@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'pg'
 
 # Gems used only for assets and not required
@@ -13,13 +9,9 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
 end
 
+# Frontend Framework
 gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
@@ -28,6 +20,7 @@ gem 'neat'
 gem 'geocoder'
 gem 'dstk'
 
+# DOL API
 gem 'json'
 gem 'ruby-hmac'
 gem 'always_verify_ssl_certificates'
@@ -35,6 +28,9 @@ gem 'always_verify_ssl_certificates'
 # Foursquare API
 gem "typhoeus"
 gem "quimby"
+
+# Password Authentication
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -49,8 +45,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'pry'
-  gem 'debugger'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem "shoulda-callback-matchers", "=0.2.0"
@@ -59,9 +53,6 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
