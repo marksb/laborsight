@@ -1,12 +1,9 @@
-
-
 class CompaniesController < ApplicationController
 
   def data
     params[:lat]
     params[:lng]
 
-    # @addresses = Address.all
     @addresses = Address.includes({companies: :industry})
     companies = []
 

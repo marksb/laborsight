@@ -17,8 +17,6 @@ var MapView = {
     google.maps.event.addListener(this.map, 'bounds_changed', function() {
       that.getCompanies();
     });
-
-    // $("#side-bar").hide();
   },
   getCompanies: function() {
     var bounds = this.getTheBounds();
@@ -46,7 +44,6 @@ var MapView = {
 
   openSideBar: function(company) {
     var that = this;
-    // $("#side-bar").show();
     var companyData = that.renderSideBar(company);
     $("#side-bar").children().remove();
     $("#side-bar").append(companyData);

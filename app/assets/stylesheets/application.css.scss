@@ -23,7 +23,6 @@ body { height: 100%; width: 100%; margin: 0; padding: 0 }
 #side-bar {
   @include span-columns(3);
   @include omega();
-  // @include shift(9);
   background-color: #333;
   color: #fff;
 }
