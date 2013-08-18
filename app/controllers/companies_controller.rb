@@ -1,4 +1,4 @@
-require 'pry'
+
 
 class CompaniesController < ApplicationController
 
@@ -7,8 +7,7 @@ class CompaniesController < ApplicationController
     params[:lng]
 
     # @addresses = Address.all
-    @addresses = Address.includes(:companies)
-    binding.pry
+    @addresses = Address.includes({companies: :industry})
     companies = []
 
     @addresses.each do |address|
