@@ -2,8 +2,8 @@ class CompaniesController < ApplicationController
 
   def data
     center = [params[:center][:lat], params[:center][:lng,]]
-    box = Geocoder::Calculations.bounding_box(center, 500)
-    @addresses = Address.within_bounding_box(box).includes({companies: :industry})
+    box = Geocoder::Calculations.bounding_box(center, 10)
+    @addresses = Address.within_bounding_box(box).includes({companies: :industry}).limit(100)
     companies = []
 
     @addresses.each do |address|
@@ -29,9 +29,9 @@ class CompaniesController < ApplicationController
                    state: address.state,
                    zip: address.zip,
                    latitude: address.latitude,
-                   longitude: address.longitude,
-                   naic_code: company.industry.naic_code,
-                   naic_code_description: company.industry.naic_code_description
+                   longitude: address.longitude
+                   # naic_code: company.industry.naic_code,
+                   # naic_code_description: company.industry.naic_code_description
                   }
         companies << company.to_json
       end

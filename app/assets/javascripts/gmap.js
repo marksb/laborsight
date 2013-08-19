@@ -2,7 +2,7 @@ var MapView = {
 
   init: function() {
     var mapOptions = {
-        zoom: 5,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         scaleControlOptions: {
       }
@@ -19,22 +19,20 @@ var MapView = {
       that.getCompanies();
     });
 
-    google.maps.event.addListener(this.map, 'bounds_changed', function() {
-      that.getCompanies();
-    });
+    // google.maps.event.addListener(this.map, 'bounds_changed', function() {
+    //   that.getCompanies();
+    // });
   },
 
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
-
     $.get('/companies/data', bounds, function(response) {
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
         that.markers.push(that.renderMarker(company));
       }
     });
-    console.log(that.markers);
     that.startMarkerManager();
   },
 
@@ -59,7 +57,6 @@ var MapView = {
         markerBatch[i] = temp;
     }
     return markerBatch.slice(min);
-    return markerBatch;
   },
 
   startMarkerManager: function(){
@@ -67,9 +64,17 @@ var MapView = {
     markerManager = new MarkerManager(that.map);
     google.maps.event.addListener(markerManager, 'loaded', function(){
       //first number represents size of marker sample, second number zoom level
-      markerManager.addMarkers(that.makeRandomMarkerSample(that.markers, 2), 5);
+      markerManager.addMarkers(that.markers, 5);
+      markerManager.addMarkers(that.markers, 10);
+      markerManager.addMarkers(that.markers, 15);
+      markerManager.addMarkers(that.markers, 20);
       markerManager.refresh();
     });
+  },
+
+  deleteOverlays: function() {
+    var that = this;
+    that.markers = [];
   },
 
   openSideBar: function(company) {
@@ -100,13 +105,11 @@ var MapView = {
   },
   setUserLocation: function() {
     var that = this;
-
     if(navigator.geolocation) {
       browserSupportFlag = true;
       navigator.geolocation.getCurrentPosition(function(position) {
         initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
         that.map.setCenter(initialLocation);
-
       }, function() {
         handleNoGeolocation(browserSupportFlag);
       });
