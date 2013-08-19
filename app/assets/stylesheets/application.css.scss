@@ -1,5 +1,11 @@
 @import "bourbon";
 @import "neat";
+@import "variables";
+@import "typography";
+@import "forms";
+@import "tables";
+@import "lists";
+@import "flashes";
 
 /*
  *= require_self
@@ -25,4 +31,50 @@ body { height: 100%; width: 100%; margin: 0; padding: 0 }
   @include omega();
   background-color: #333;
   color: #fff;
+}
+
+// Profile //
+.profile {
+  @include span-columns(9);
+  @include shift(1.5);
+  @include pad();
+}
+
+.contact {
+  @include span-columns(12);
+
+  background-color: $green;
+}
+
+.data {
+  @include span-columns(12);
+}
+
+.stats {
+  @include span-columns(4);
+  @include omega;
+
+}
+
+.action {
+  @include span-columns(12);
+  margin-top: 2em;
+}
+
+.chart {
+  @include span-columns(12);
+}
+
+.yelp {
+  color: $red;
+}
+
+.foursquare {
+  color: $blue;
+}
+
+footer {
+  @include span-columns(9);
+  @include shift(1.5);
+  @include pad();
 }
