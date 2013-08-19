@@ -2,7 +2,7 @@ var MapView = {
 
   init: function() {
     var mapOptions = {
-        zoom: 15,
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         scaleControlOptions: {
       }
@@ -15,13 +15,18 @@ var MapView = {
     this.setUserLocation();
     var that = this;
 
-    google.maps.event.addListener(this.map, 'idle', function() {
+    google.maps.event.addListener(this.map, 'zoom_changed', function() {
+      that.markerManager.clearMarkers();
       that.getCompanies();
     });
 
     // google.maps.event.addListener(this.map, 'bounds_changed', function() {
     //   that.getCompanies();
     // });
+
+    google.maps.event.addListener(this.map, 'idle', function() {
+      that.getCompanies();
+    });
   },
 
   getCompanies: function() {
@@ -48,27 +53,26 @@ var MapView = {
     return marker;
   },
 
-  makeRandomMarkerSample: function(markers, size) {
-    var markerBatch = markers.slice(0), i = markers.length, min = i - size, temp, index;
-    while (i-- > min) {
-        index = Math.floor(i * Math.random());
-        temp = markerBatch[index];
-        markerBatch[index] = markerBatch[i];
-        markerBatch[i] = temp;
+  clearMapMarkers: function() {
+    var that = this;
+      if(that.markers && that.markers.length !== 0){
+      for(var i = 0; i < that.markers.length; ++i){
+          that.markers[i].setMap(null);
+      }
     }
-    return markerBatch.slice(min);
+   that.markers = [];
   },
 
   startMarkerManager: function(){
     var that = this;
+    console.log(that.markers);
     markerManager = new MarkerManager(that.map);
     google.maps.event.addListener(markerManager, 'loaded', function(){
-      //first number represents size of marker sample, second number zoom level
-      markerManager.addMarkers(that.markers, 5);
-      markerManager.addMarkers(that.markers, 10);
-      markerManager.addMarkers(that.markers, 15);
-      markerManager.addMarkers(that.markers, 20);
-      markerManager.refresh();
+    console.log(that.markers);
+    markerManager.addMarkers(that.markers, 15);
+    markerManager.addMarkers(that.markers, 10);
+    markerManager.addMarkers(that.markers, 5);
+    markerManager.refresh();
     });
   },
 
