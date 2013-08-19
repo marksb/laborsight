@@ -1,8 +1,11 @@
 class CompaniesController < ApplicationController
-
+include ApplicationHelper
   def data
-    center = [params[:center][:lat], params[:center][:lng,]]
-    box = Geocoder::Calculations.bounding_box(center, 10)
+    center = [params[:center][:lat], params[:center][:lng]]
+    distance = distance([params[:ne][:lat].to_f,params[:ne][:lng].to_f],[params[:sw][:lat].to_f,params[:sw][:lng].to_f])
+    p distance
+    # TODO: use lat/long to dynamically calculate distance
+    box = Geocoder::Calculations.bounding_box(center, distance)
     @addresses = Address.within_bounding_box(box).includes({companies: :industry}).limit(100)
     companies = []
 
