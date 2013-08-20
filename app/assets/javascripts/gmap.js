@@ -39,13 +39,19 @@ var MapView = {
 
   renderMarker: function(company) {
     var that = this;
+    var customPin = '/assets/markerRed.png';
+    console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
+      icon: customPin,
       map: that.map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
+      that.activeMarker = marker
+      that.activeMarker.setIcon('/assets/marker2.png');
       that.openSideBar(company);
+
     });
     return marker;
   },
