@@ -77,13 +77,21 @@ footer {
 }
 
 .grade {
-  background-color: $green;
+  background-color: $red;
   color: $white;
   float: right;
-  font-size: 120px;
   text-align: center;
-  width: 15%;
   margin: 2.35765%;
+  width: 15%;
+  height: 0;
+  padding-bottom: 15%;
+
+  span {
+    font-size: 175%;
+    position: relative;
+    width: 100%;
+    top: 20%;
+  }
 }
 
 .jumbo {
@@ -124,11 +132,15 @@ footer {
   border-bottom: 1px dashed $medium-gray;
 }
 
+.social-action {
+  text-align: center;
+}
+
 .social-icon {
   border: 0;
-  display: block;
-  margin: 2em auto;
+  display: inline;
   height: 8em;
+  margin: 2em 2em;
   width: 8em;
 }
 
