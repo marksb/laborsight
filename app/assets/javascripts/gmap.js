@@ -139,5 +139,6 @@ var MapView = {
 
 $(document).ready(function(){
   MapView.init();
+  $( "#pure-stats" ).accordion();
 });
 

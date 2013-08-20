@@ -12,6 +12,8 @@
     src="https://maps.googleapis.com/maps/api/js?sensor=false">
   </script>
 
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
     <script>
     function createChart(){
       var ctx = document.getElementById("local-chart").getContext("2d");
@@ -41,8 +43,14 @@
      }
      </script>
 
+    <script>
+    function accordion() {
+      $( "#pure-stats" ).accordion();
+    };
+  </script>
+
   </head>
-  <body onload="createChart();">
+  <body onload="createChart(); accordion();">
     <%= yield %>
   </body>
 </html>

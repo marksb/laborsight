@@ -87,7 +87,7 @@ footer {
   padding-bottom: 15%;
 
   span {
-    font-size: 175%;
+    font-size: 10vh;
     position: relative;
     width: 100%;
     top: 20%;
@@ -164,6 +164,21 @@ footer {
   margin: 0 auto;
   line-height: 1em;
 }
+
+//***** Accordion ******//
+#pure-stats {
+  @include pad();
+  clear: both;
+
+  h3 {
+    border-bottom: 1px dashed #999999;
+    margin: .5em 0;
+  }
+
+  h3:focus {
+    outline: none;
+  }
+} 
 
 //***** Chart ******//
 
