@@ -76,6 +76,6 @@ select {
 
 button:not(.reset-style), // Add class of 'reset-style' to prevent a button from being styled
 input[type="submit"]:not(.reset-style) {
-  @include button(simple, $base-accent-color);
+  border: 0;
   font-size: $form-font-size;
 }

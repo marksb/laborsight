@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 $base-font-family: $georgia;
-$header-font-family: $helvetica;
+$header-font-family: 'Lato', sans-serif;;
 
 // Sizes
 ///////////////////////////////////////////////////////////////////////////////
@@ -16,15 +16,22 @@ $base-border-radius: 3px;
 ///////////////////////////////////////////////////////////////////////////////
 $red: #DD5642;
 $blue: #5D7CA8;
-$green: #88b54e;
+$green: #88B54E;
 $yellow: #EAC95E;
+
 $light-gray: #DDD;
 $dark-gray: #333;
 $medium-gray: #999;
+$black: #000;
+$white: #FFF;
+
+$yelp: #C41200;
+$foursquare: #0072B1;
+$facebook: #3B5998;
 
 //  Font Colors
 $base-font-color: $dark-gray;
-$base-accent-color: $green;
+$base-accent-color: $blue;
 
 //  Text Link Colors
 $base-link-color: $base-accent-color;
