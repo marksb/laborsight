@@ -12,6 +12,7 @@ class CompaniesController < ApplicationController
         company = {case_id: company.case_id,
                    trade_name: company.trade_name,
                    legal_name: company.legal_name,
+                   letter_grade: company.assign_letter_grade,
                    flsa_cl_violtn_count: company.flsa_cl_violtn_count,
                    flsa_cl_minor_count: company.flsa_cl_minor_count,
                    flsa_cl_cmp_assd_amt: company.flsa_cl_cmp_assd_amt,

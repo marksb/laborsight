@@ -51,6 +51,7 @@ var MapView = {
 
   renderSideBar: function(company) {
     return $("<h1>" + company["trade_name"] + "</h1>" +
+             "<h2>" + company["letter_grade"] + "</h2>" +
              "<h2>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</h2>" +
              "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
              "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
