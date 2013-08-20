@@ -39,13 +39,19 @@ var MapView = {
 
   renderMarker: function(company) {
     var that = this;
+    var customPin = '/assets/markerRed.png';
+    console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
+      icon: customPin,
       map: that.map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
+      that.activeMarker = marker
+      that.activeMarker.setIcon('/assets/marker2.png');
       that.openSideBar(company);
+
     });
     return marker;
   },
@@ -89,7 +95,8 @@ var MapView = {
     return $("<h1>" + company["trade_name"] + "</h1>" +
              "<h2>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</h2>" +
              "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
-             "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>");
+             "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
+             "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>")
   },
 
   getTheBounds: function() {
@@ -132,5 +139,6 @@ var MapView = {
 
 $(document).ready(function(){
   MapView.init();
+  $( "#pure-stats" ).accordion();
 });
 

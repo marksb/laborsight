@@ -12,6 +12,7 @@ include ApplicationHelper
     @addresses.each do |address|
       address.companies.each do |company|
         company = {case_id: company.case_id,
+                   id: company.id, 
                    trade_name: company.trade_name,
                    legal_name: company.legal_name,
                    flsa_cl_violtn_count: company.flsa_cl_violtn_count,
@@ -44,7 +45,7 @@ include ApplicationHelper
   end
 
   def show
-
+    @company = Company.find(params[:id])
   end
 end
 
