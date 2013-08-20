@@ -11,7 +11,7 @@ module Grade
 
     total = child_labor_avg + (flsa_repeat_violator_rating * 2 )+ flsa_violation_count_rating + flsa_ee_atp_count_rating +
             bw_atp_amt_rating + mspa_avg + fmla_avg + h1b_avg
-    grade = total / 10
+    grade = total / 9
   end
 
   def assign_letter_grade
