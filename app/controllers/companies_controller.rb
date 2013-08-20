@@ -1,15 +1,18 @@
 class CompaniesController < ApplicationController
-
+include ApplicationHelper
   def data
-    params[:lat]
-    params[:lng]
-
-    @addresses = Address.includes({companies: :industry})
+    center = [params[:center][:lat], params[:center][:lng]]
+    distance = distance([params[:ne][:lat].to_f,params[:ne][:lng].to_f],[params[:sw][:lat].to_f,params[:sw][:lng].to_f])
+    p distance
+    # TODO: use lat/long to dynamically calculate distance
+    box = Geocoder::Calculations.bounding_box(center, distance)
+    @addresses = Address.within_bounding_box(box).includes({companies: :industry}).limit(100)
     companies = []
 
     @addresses.each do |address|
       address.companies.each do |company|
         company = {case_id: company.case_id,
+                   id: company.id, 
                    trade_name: company.trade_name,
                    legal_name: company.legal_name,
                    letter_grade: company.assign_letter_grade,
@@ -26,14 +29,14 @@ class CompaniesController < ApplicationController
                    flsa_mw_bw_atp_amt: company.flsa_mw_bw_atp_amt,
                    flsa_ot_bw_atp_amt: company.flsa_ot_bw_atp_amt,
                    flsa_15a3_bw_atp_amt: company.flsa_15a3_bw_atp_amt,
-                   street: company.address.street,
-                   city: company.address.city,
-                   state: company.address.state,
-                   zip: company.address.zip,
-                   latitude: company.address.latitude,
-                   longitude: company.address.longitude,
-                   naic_code: company.industry.naic_code,
-                   naic_code_description: company.industry.naic_code_description
+                   street: address.street,
+                   city: address.city,
+                   state: address.state,
+                   zip: address.zip,
+                   latitude: address.latitude,
+                   longitude: address.longitude
+                   # naic_code: company.industry.naic_code,
+                   # naic_code_description: company.industry.naic_code_description
                   }
         companies << company.to_json
       end
@@ -43,7 +46,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-
+    @company = Company.find(params[:id])
   end
 end
 
