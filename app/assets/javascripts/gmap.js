@@ -15,16 +15,8 @@ var MapView = {
     this.setUserLocation();
     var that = this;
 
-    google.maps.event.addListener(this.map, 'zoom_changed', function() {
-      that.markerManager.clearMarkers();
-      that.getCompanies();
-    });
-
-    // google.maps.event.addListener(this.map, 'bounds_changed', function() {
-    //   that.getCompanies();
-    // });
-
     google.maps.event.addListener(this.map, 'idle', function() {
+      console.log("Idle event fired!");
       that.getCompanies();
     });
   },
@@ -32,19 +24,24 @@ var MapView = {
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
+    console.log("Firing GET request!");
     $.get('/companies/data', bounds, function(response) {
+      console.log("Clearing companies and rendering new ones!");
+      that.clearMapMarkers();
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
         that.markers.push(that.renderMarker(company));
       }
+      that.startMarkerManager();
     });
-    that.startMarkerManager();
+
   },
 
   renderMarker: function(company) {
     var that = this;
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(company["latitude"], company["longitude"])
+      position: new google.maps.LatLng(company["latitude"], company["longitude"]),
+      map: that.map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -64,16 +61,16 @@ var MapView = {
   },
 
   startMarkerManager: function(){
+    console.log(this.markers.length);
+    // this.markerManager = new MarkerManager(this.map);
     var that = this;
-    console.log(that.markers);
-    markerManager = new MarkerManager(that.map);
-    google.maps.event.addListener(markerManager, 'loaded', function(){
-    console.log(that.markers);
-    markerManager.addMarkers(that.markers, 15);
-    markerManager.addMarkers(that.markers, 10);
-    markerManager.addMarkers(that.markers, 5);
-    markerManager.refresh();
-    });
+
+    // google.maps.event.addListener(that.markerManager, 'loaded', function(){
+    //   that.markerManager.addMarkers(that.markers, 15);
+    //   that.markerManager.addMarkers(that.markers, 10);
+    //   that.markerManager.addMarkers(that.markers, 5);
+    //   that.markerManager.refresh();
+    // });
   },
 
   deleteOverlays: function() {
