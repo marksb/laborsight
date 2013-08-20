@@ -35,22 +35,34 @@
   color: $medium-gray;
 }
 
+.divider {
+  border-bottom: 1px dashed #999999;
+  border-style: dashed;
+}
+
 //***** Map ******//
-#map {
+#side-bar {
   @include outer-container;
+  @include span-columns(3);
+  @include pad(); 
+  font-size: 80%;
+    h3 {
+      color: $dark-gray;
+    }
+
+    .sidebar-info {
+      margin: 2em 0;
+    }
+}
+
+#map {
   @include span-columns(9);
+  @include omega();
   height: 100%;
 }
 
 #map-canvas {
   height: 100%;
-}
-
-#side-bar {
-  @include span-columns(3);
-  @include omega();
-  background-color: #333;
-  color: #fff;
 }
 
 //***** Profile ******//
@@ -153,6 +165,9 @@ footer {
   color: $white;
   text-align: center;
   background-color: $dark-gray;
+    a, a:link, a:visited {
+      color: $white;
+    }
 }
 
 .return:hover {
