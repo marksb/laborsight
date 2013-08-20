@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816054206) do
+ActiveRecord::Schema.define(:version => 20130819211412) do
 
   create_table "addresses", :force => true do |t|
     t.string  "street"
@@ -39,17 +39,44 @@ ActiveRecord::Schema.define(:version => 20130816054206) do
     t.float    "flsa_mw_bw_atp_amt"
     t.float    "flsa_ot_bw_atp_amt"
     t.float    "flsa_15a3_bw_atp_amt"
+    t.string   "foursquare_id"
     t.integer  "address_id"
     t.integer  "industry_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "mspa_violtn_cnt"
+    t.float    "mspa_bw_atp_amt"
+    t.integer  "mspa_ee_atp_cnt"
+    t.float    "mspa_cmp_assd_amt"
+    t.integer  "fmla_violtn_cnt"
+    t.float    "fmla_bw_atp_amt"
+    t.integer  "fmla_ee_atp_cnt"
+    t.float    "fmla_cmp_assd_amt"
+    t.integer  "h1b_violtn_cnt"
+    t.integer  "h1b_bw_atp_amt"
+    t.integer  "h1b_ee_atp_cnt"
+    t.float    "h1b_cmp_assd_amt"
   end
+
+  add_index "companies", ["address_id"], :name => "index_companies_on_address_id"
 
   create_table "industries", :force => true do |t|
     t.integer  "naic_code"
     t.string   "naic_code_description"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "username"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "default_city"
+    t.string   "default_state"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end
