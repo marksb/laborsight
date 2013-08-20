@@ -1,59 +1,77 @@
-
-<div class="profile">
-  <h1><%= @company.trade_name %></h1>
-
-  <div class="contact">
-    <h4>Contact:</h4>
-    <p><%= @company.address.street %>, <%= @company.address.city %>, <%= @company.address.state %>, <%= @company.address.zip %> </p>     
-  </div>
-
-    Inspected on: <p><%= @company.findings_start_date %> to <%= @company.findings_end_date %> </p>
-
-  <div class="data">
-    <div class="chart">
-      
-    </div>
-    <p><%= @company.case_id %> </p>
-    <p><%= @company.legal_name %> </p>
-    <p>Violation Count: <%= @company.flsa_cl_violtn_count %> </p>
-    <p>Minor Count: <%= @company.flsa_cl_minor_count %> </p>
-    <p><%= @company.flsa_cl_cmp_assd_amt %> </p>
-    <p><%= @company.bw_atp_amt %> </p>
-    <p><%= @company.flsa_cmp_assd_amt %> </p>
-    <p>Repeat Offender: <%= @company.flsa_repeat_violator %> </p>
-    <p><%= @company.flsa_violation_count %> </p>
-    <p><%= @company.flsa_ee_atp_count %> </p>
-    <p><%= @company.flsa_mw_bw_atp_amt %> </p>
-    <p><%= @company.flsa_ot_bw_atp_amt %> </p>
-    <p><%= @company.flsa_15a3_bw_atp_amt %> </p>
-  </div>
-
-
-<hr>
-
-  <div class="stats yelp">
-    <h3>Yelp</h3>
-    <h6>Check-Ins:</h6>
-    <h6>Users:</h6>  
-  </div>
-
-  <div class="stats foursquare">
-    <h3>Foursquare</h3>
-    <h6>Check-Ins:</h6>
-    <h6>Users:</h6>
-  </div>
-
-  <div class="stats foursquare">
-    <h3> Service</h3>
-    <h6>Check-Ins:</h6>
-    <h6>Users:</h6>
-  </div>
-  
-  <div class="action">
-    <h3>Take Action</h3>
-  </div>
+<div class="return">
+  <h5><%= link_to "Map", controller: "maps" %></h5>
 </div>
 
+<div class="profile">
+  <div class="contact">
+    <h1 class='page-title'><%= @company.trade_name %></h1>
+    <p class='fade'><%= @company.address.street %>, <%= @company.address.city %>, <%= @company.address.state %>, <%= @company.address.zip %> </p>
+    <p class='fade'>Inspected:  <%= @company.findings_start_date.strftime("%m-%d-%Y") %> to <%= @company.findings_end_date.strftime("%m-%d-%Y") %> </p>
+  </div>
+
+  <h1 class='grade'>A</h1>
+
+  <div id="slider" class="slider data">
+    
+    <ul id='local' class="chart">
+      <a href="#"> <canvas id="local-chart" width="800" height="600"></a>
+    </ul>
+
+    <ul id='state' class="chart">
+      <a href="#"><canvas id="local-chart" width="800" height="600"></a></a>
+    </ul>
+
+    <ul id='national' class="chart">
+      <a href="#"><canvas id="local-chart" width="800" height="600"></a></canvas></a>
+    </ul>
+
+    <nav>
+      <a href="#" id='local' class='selected'><h6>Local</h6></a>
+      <a href="#" id='state' ><h6>State</h6></a>
+      <a href="#" id='national'><h6>National</h6></a>
+    </nav>
+  </div>
+
+  <div class="stats foursquare">
+    <h3 class='service-title'>Foursquare</h3>
+    <div class='service-stats'> 
+      <h6>Check-Ins:</h6>
+      <h6>Users:</h6>
+    </div>
+  </div>
+
+  <div class="stats yelp">
+    <h3 class='service-title'>Yelp</h3>
+      <div class='service-stats'> 
+        <h6>Check-Ins:</h6>
+        <h6>Users:</h6>  
+      </div>
+  </div>
+
+  <div class="stats foursquare">
+    <h3 class='service-title'>Facebook</h3>
+      <div class='service-stats'> 
+        <h6>Check-Ins:</h6>
+        <h6>Users:</h6>
+      </div>
+  </div>
+  
+  <div class="action jumbo">
+    <h1>Take Action</h1>
+    <div class= 'action-social'> 
+      <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
+      <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
+      <%= link_to image_tag("icons/facebook-circ.png", :class => "social-icon") %>
+    </div>
+  </div>
+</div>
+  
 <footer>
-  about us
+  <p>footer</p>
 </footer>
+
+<script>
+  $(function() {
+    $( '#slider' ).catslider();
+  });
+</script>

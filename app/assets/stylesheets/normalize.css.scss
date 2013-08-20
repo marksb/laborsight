@@ -92,6 +92,7 @@ audio:not([controls]) {
 //    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
 
 html {
+    height: 100%;
     @if $legacy_support_for_ie {
         font-size: 100%; // 1
     }
@@ -114,7 +115,10 @@ textarea {
 // Addresses margins handled incorrectly in IE6/7
 
 body {
-    margin: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
 }
 
 // =============================================================================
@@ -131,6 +135,7 @@ a {
 
     &:focus {
         outline: thin dotted;
+        text-decoration: none;
     }
 
     // 2
@@ -138,6 +143,7 @@ a {
     &:hover,
     &:active {
         outline: 0;
+        text-decoration: none;
     }
 }
 

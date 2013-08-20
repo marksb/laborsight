@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 @import "bourbon";
 @import "neat";
 @import "variables";
@@ -11,11 +12,30 @@
  *= require_self
 */
 
-// Base Elements //
-html { height: 100% }
-body { height: 100%; width: 100%; margin: 0; padding: 0 }
+//***** Global ******//
+.right {
+  float: right;
+}
 
-// Map //
+
+//***** Colors ******//
+.yelp {
+  color: $yelp;
+}
+
+.foursquare {
+  color: $foursquare;
+}
+
+.facebook {
+  color: $facebook;
+}
+
+.fade {
+  color: $medium-gray;
+}
+
+//***** Map ******//
 #map {
   @include outer-container;
   @include span-columns(9);
@@ -33,48 +53,203 @@ body { height: 100%; width: 100%; margin: 0; padding: 0 }
   color: #fff;
 }
 
-// Profile //
+//***** Profile ******//
+.action {
+  @include span-columns(12);
+  margin: 2em 0;
+}
+
+.contact {
+  @include span-columns(6);
+  @include pad();
+}
+
+.data {
+  @include span-columns(12);
+  margin: 4em 0;
+}
+
+footer {
+  @include span-columns(9);
+  @include shift(1.5);
+  height: 30px;
+  background-color: $dark-gray;
+}
+
+.grade {
+  background-color: $green;
+  color: $white;
+  float: right;
+  font-size: 120px;
+  text-align: center;
+  width: 15%;
+  margin: 2.35765%;
+}
+
+.jumbo {
+  margin-top: 5em;
+  h1{
+    text-align: center;
+    font-size: em(84);
+    font-weight: 300;
+  }
+}
+
 .profile {
   @include span-columns(9);
   @include shift(1.5);
   @include pad();
 }
 
-.contact {
-  @include span-columns(12);
-
-  background-color: $green;
-}
-
-.data {
-  @include span-columns(12);
-}
-
 .stats {
   @include span-columns(4);
   @include omega;
+  margin: 2em 0;
 
+  h3{
+    text-align: center;
+  }
 }
 
-.action {
-  @include span-columns(12);
-  margin-top: 2em;
-}
-
-.chart {
-  @include span-columns(12);
-}
-
-.yelp {
-  color: $red;
-}
-
-.foursquare {
-  color: $blue;
-}
-
-footer {
-  @include span-columns(9);
-  @include shift(1.5);
+.service-stats {
+  @include span-columns(10);
+  @include shift(1);
   @include pad();
+}
+
+.service-title {
+  @include span-columns(10);
+  @include shift(1);
+  @include pad();
+  border-bottom: 1px dashed $medium-gray;
+}
+
+.social-icon {
+  border: 0;
+  display: block;
+  margin: 2em auto;
+  height: 8em;
+  width: 8em;
+}
+
+.return {
+  @include span-columns(1);
+  position: fixed;
+  top:100px;
+  padding: 10px 0;
+  font-weight: 700;
+  color: $white;
+  text-align: center;
+  background-color: $dark-gray;
+}
+
+.return:hover {
+  background-color: $green;
+}
+
+.page-title {
+  text-transform: uppercase;
+  margin: 0 auto;
+  line-height: 1em;
+}
+
+//***** Chart ******//
+
+canvas{
+  width: 100% !important;
+  height: auto !important;
+  max-width: 600px;
+}
+
+.chart-nav {
+  @include span-columns(8);
+  @include shift(2);
+}
+
+//***** Slider ******//
+
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-top: 20px solid #f00;
+}
+
+.slider {
+  @include omega;
+  position: relative;
+  margin-top: 10em;
+  height: 490px;
+}
+
+.slider ul {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 140px;
+  overflow: hidden;
+  text-align: center;
+  pointer-events: none;
+}
+
+.slider ul.current {
+  pointer-events: auto;
+}
+
+.slider nav {
+  position: relative;
+  top: 400px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  border-top: 5px solid $dark-gray;
+}
+
+.slider nav a {
+  display: inline-block;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 5px;
+  padding: 40px 30px 30px 34px;
+  position: relative;
+  color: $medium-gray;
+  outline: none;
+  -webkit-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.slider nav a:hover,
+.slider nav a.selected {
+  color: $black;
+}
+
+.slider nav a.selected:after,
+.slider nav a.selected:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  border: solid transparent;
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.slider nav a.selected:after {
+  border-color: transparent;
+  border-top-color: $white;
+  border-width: 20px;
+  left: 50%;
+  margin-left: -20px;
+}
+
+.slider nav a.selected:before {
+  border-color: transparent;
+  border-top-color: $dark-gray;
+  border-width: 27px;
+  left: 50%;
+  margin-left: -27px;
 }
