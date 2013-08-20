@@ -29,8 +29,6 @@ gem 'geocoder'
 gem 'dstk'
 
 gem 'json'
-gem 'ruby-hmac'
-gem 'always_verify_ssl_certificates'
 
 # Foursquare API
 gem "typhoeus"
