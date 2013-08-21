@@ -64,11 +64,6 @@ var MapView = {
     }
    that.markers = [];
   },
-  
-  deleteOverlays: function() {
-    var that = this;
-    that.markers = [];
-  },
 
   openSideBar: function(company) {
     var that = this;
@@ -78,7 +73,8 @@ var MapView = {
   },
 
   renderSideBar: function(company) {
-    return $("<h3 class='trade-name'>" + company["trade_name"] + "</h3>" +
+    return $("<h3>" + company["trade_name"] + "</h3>" +
+             "<h3>" + company["letter_grade"] + "</h3>" +
              "<span class='fade'>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</span>" +
              "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
              "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
