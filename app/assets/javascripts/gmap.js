@@ -3,7 +3,9 @@ var MapView = {
   init: function() {
     var mapOptions = {
         zoom: 10,
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: style,
+        disableDefaultUI: true,
         scaleControlOptions: {
       }
     };
@@ -16,7 +18,6 @@ var MapView = {
     var that = this;
 
     google.maps.event.addListener(this.map, 'idle', function() {
-      console.log("Idle event fired!");
       that.getCompanies();
     });
   },
@@ -24,7 +25,6 @@ var MapView = {
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
-    console.log("Firing GET request!");
     $.get('/companies/data', bounds, function(response) {
       console.log("Clearing companies and rendering new ones!");
       that.clearMapMarkers();
@@ -40,7 +40,6 @@ var MapView = {
   renderMarker: function(company) {
     var that = this;
     var customPin = '/assets/markerRed.png';
-    console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -64,17 +63,6 @@ var MapView = {
       }
     }
    that.markers = [];
-  },
-
-  startMarkerManager: function(){
-    console.log(this.markers.length);
-    // this.markerManager = new MarkerManager(this.map);
-    var that = this;
-  },
-
-  deleteOverlays: function() {
-    var that = this;
-    that.markers = [];
   },
 
   openSideBar: function(company) {
@@ -132,7 +120,7 @@ var MapView = {
 };
 
 $(document).ready(function(){
-  MapView.init();
-  $( "#pure-stats" ).accordion();
+  myTabs(); //Tabs MUST be called within this document.ready
+  stateOnClick();
 });
 
