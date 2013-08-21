@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 
 gem 'pg'
+gem 'json'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -16,8 +17,6 @@ gem 'neat'
 
 # Location Geocoding
 gem 'geocoder'
-
-gem 'json'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -39,4 +38,9 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'flay'
+  gem 'flog'
+  gem 'reek'
+  gem 'brakeman'
+  gem 'simplecov'
 end
