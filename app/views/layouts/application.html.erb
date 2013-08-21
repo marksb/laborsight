@@ -45,7 +45,11 @@
 
     <script>
     function accordion() {
-      $( "#pure-stats" ).accordion();
+      $( "#pure-stats" ).accordion({
+        collapsible: true,
+        autoHeight: true,
+        active: false
+      });
     };
   </script>
 

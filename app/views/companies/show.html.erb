@@ -9,15 +9,132 @@
     <p class='fade'>Inspected:  <%= @company.findings_start_date.strftime("%m-%d-%Y") %> to <%= @company.findings_end_date.strftime("%m-%d-%Y") %> </p>
   </div>
 
-  <h1 class='grade'><span>C</span></h1>
+  <h1 class='grade'><span><%= @company.assign_letter_grade %></span></h1>
 
+  <h1 class="stats-header">Company Statistics</h1>
   <div id="pure-stats">
-    <h3>Child Labor</h3>
-      <div>Test</div>
-    <h3>Something Else</h3>
-      <div>Test</div>
-    <h3>Something Else</h3>
-      <div>Test</div>
+    <h3><span>▹</span> Child Labor</h3>
+    <div>
+      <span class="fade">The federal child labor provisions, authorized by the Fair Labor Standards Act (FLSA) of 1938, also known as the child labor laws, were enacted to ensure that when young people work, the work is safe and does not jeopardize their health, well-being or educational opportunities.</span>
+        <table>
+          <tr>
+            <td>Violations found under Fair Labor Standards Act for child labor</td>
+            <td><%= @company.flsa_cl_violtn_count %></td>
+          </tr>
+          <tr>
+            <td>Minors found employed in violation of Fair Labor Standards Act</td>
+            <td><%= @company.flsa_cl_minor_count %></td>
+          </tr>
+          <tr>
+            <td>Civil monetary penalties owed for child labor violations</td>
+            <td>$<%= @company.flsa_cmp_assd_amt.round(2) %></td>
+          </tr>
+      </table>
+    </div>
+
+    <h3><span>▹</span> Backwages</h3>
+    <div>
+      <span class="fade">
+        A common remedy for wage violations is an order that the employer make up the difference between what the employee was paid and the amount he or she should have been paid. The amount of this sum is often referred to as "back pay." 
+      </span>
+
+      <table>
+        <tr>
+          <td>Backwages owed for overtime</td>
+          <td>$<%= @company.flsa_ot_bw_atp_amt  %></td>
+        </tr>
+        <tr>
+          <td>Backwages owed for minimum wage violations</td>
+          <td>$<%= @company.flsa_mw_bw_atp_amt %></td>
+        </tr>
+        <tr>
+          <td>Backwages owed for violating Fair Labor Standards Act 15(a)(3)</td>
+          <td>$<%= @company.flsa_15a3_bw_atp_amt %></td>
+        </tr>
+        <tr>
+          <td>Total backwages agreed to pay</td>
+          <td>$<%= @company.bw_atp_amt %></td>
+        </tr>
+      </table>
+  </div>
+
+
+  <h3><span>▹</span> Family & Medical Leave Act</h3>
+  <div>
+    <span class="fade">
+    The FMLA entitles eligible employees of covered employers to take unpaid, job-protected leave for specified family and medical reasons with continuation of group health insurance coverage under the same terms and conditions as if the employee had not taken leave. 
+    </span>
+    <table>
+      <tr>
+        <td>Number of backwage violations under the Family & Medical Leave Act </td>
+        <td><%= @company.fmla_violtn_cnt %></td>
+      </tr>
+      <tr>
+        <td>Backwages agreed to pay under the Family & Medical Leave act</td>
+        <td>$<%= @company.fmla_bw_atp_amt  %></td>
+      </tr>
+      <tr>
+        <td>Exempt employees agreed to under the Family & Medical Leave act</td>
+        <td><%= @company.fmla_ee_atp_cnt %></td>
+      </tr>
+      <tr>
+        <td>Total monetary penalties due to Family & Medical Leave violations</td>
+        <td>$<%= @company.fmla_cmp_assd_amt %></td>
+      </tr>
+    </table>
+  </div>
+
+    <h3><span>▹</span> Work Visas</h3>
+    <div> 
+      <span class="fade">A description of the violation thing.</span>
+
+      <table>
+        <tr>
+          <td>Number of violations found under H1B (Work Visas for Specialty Occupations) </td>
+          <td><%= @company.h1b_violtn_cnt %></td>
+        </tr>
+        <tr>
+          <td>Backwages agreed to pay under H2A (Work Visas for Seasonal Agricultural Workers)</td>
+          <td>$<%= @company.h1b_bw_atp_amt  %></td>
+        </tr>
+        <tr>
+          <td>Exempt employees agreed to under H2A (Work Visas for Seasonal Agricultural Workers)</td>
+          <td><%= @company.h1b_ee_atp_cnt %></td>
+        </tr>
+        <tr>
+          <td>Total monetary penalties due to H2A violations</td>
+          <td>$<%= @company.h1b_cmp_assd_amt %></td>
+        </tr>
+      </table>
+    </div>
+
+    <h3><span>▹</span> Migrant and Seasonal Agricultural Worker Protection Act</h3>
+
+    <div>
+      <span class="fade">The Migrant and Seasonal Agricultural Worker Protection Act (MSPA) protects migrant and seasonal agricultural workers by establishing employment standards related to wages, housing, transportation, disclosures and recordkeeping.</span>
+
+      <table>
+        <tr>
+          <td>Number of violations found under the Migrant & Seasonal Agrigcultural Worker Protection Act</td>
+          <td><%= @company.mspa_violtn_cnt %></td>
+        </tr>
+        <tr>
+          <td>Backwages agreed to pay under the Migrant & Seasonal Agrigcultural Worker Protection Act</td>
+          <td>$<%= @company.mspa_bw_atp_amt  %></td>
+        </tr>
+        <tr>
+          <td>Exempt employees agreed to under the Migrant & Seasonal Agrigcultural Worker Protection Act</td>
+          <td><%= @company.mspa_ee_atp_cnt %></td>
+        </tr>
+        <tr>
+          <td>Total monetary penalties due to the Migrant & Seasonal Agrigcultural Worker Protection Act violations</td>
+          <td>$<%= @company.mspa_cmp_assd_amt %></td>
+        </tr>
+      </table>
+
+
+    </div>
+
   </div>
 
   <div id="slider" class="slider data">

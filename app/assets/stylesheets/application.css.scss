@@ -48,10 +48,26 @@
   font-size: 80%;
     h3 {
       color: $dark-gray;
+      font-size: 1.5em;
     }
 
     .sidebar-info {
       margin: 2em 0;
+    }
+
+    div {
+      margin: 2em 0;
+    }
+
+    tr:nth-child(odd) { 
+      background-color: $highlight-gray;
+    }
+    tr:nth-child(even){ 
+      background-color: $white; 
+    }
+
+    td {
+      border: none;
     }
 }
 
@@ -181,6 +197,13 @@ footer {
 }
 
 //***** Accordion ******//
+.stats-header {
+  @include pad();
+  color: $blue;
+  clear: both;
+  font-weight: 300;
+}
+
 #pure-stats {
   @include pad();
   clear: both;
