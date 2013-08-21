@@ -9,6 +9,7 @@ test:
   adapter: postgresql
   encoding: unicode
   database: dol-challenge_test
+  min_messages: warning
   pool: 5
 
 production:

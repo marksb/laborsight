@@ -40,7 +40,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'flay'
   gem 'flog'
-  gem 'reek'
   gem 'brakeman'
   gem 'simplecov'
 end
