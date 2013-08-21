@@ -13,6 +13,10 @@
 */
 
 //***** Global ******//
+* {
+  margin: 0;
+}
+
 .right {
   float: right;
 }
@@ -50,8 +54,10 @@
   @include span-columns(3);
   @include pad(); 
   font-size: 80%;
+  min-height: 100%;
+  margin-bottom: -30px;
     h3 {
-      color: $dark-gray;
+      color: $blue;
       font-size: 1.5em;
     }
 
@@ -73,6 +79,19 @@
     td {
       border: none;
     }
+}
+
+#side-bar:after{
+  content: "";
+  display: block;
+}
+
+.sidebar-nav, .sidebar-nav:after {
+  height: 30px;
+}
+
+.sidebar-nav {
+  background-color: $dark-gray;
 }
 
 #map {
@@ -202,7 +221,7 @@ footer {
   text-transform: uppercase;
 }
 
-//***** Accordion ******//
+//***** Tabs ******//
 .stats-header {
   @include pad();
   color: $blue;
@@ -211,13 +230,24 @@ footer {
   font-weight: 300;
 }
 
-.good-standing {
-  font-size: 1.25em;
-}
-
 #pure-stats {
   @include pad();
   clear: both;
+  text-align: justify;
+
+  ul li {
+    @include span-columns(2.4);
+    font-family: $header-font-family;
+    background-color: $highlight-gray;
+    display: inline;
+    font-size:  1.25em;
+    padding: .5em;
+    text-align: center;
+  }
+
+  .ui-state-active a, .ui-state-active a:link {
+    color: $green;
+  }
 
   h3 {
     border-bottom: 1px dashed #999999;
@@ -226,12 +256,25 @@ footer {
     margin: .5em 0;
   }
 
-  h3:focus {
+  li:focus {
     outline: none;
   }
 
   div {
+    border-top: 1px dashed #999999;
+    clear: both;
+    height: 14.5em;
+    margin-top: 1em;
     padding: 0 0 2em 0;
+  }
+
+  p {
+    margin-top: 1em;
+  }
+
+  .good-standing {
+  font-size: 1.25em;
+  margin: 2em 0;
   }
 } 
 

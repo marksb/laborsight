@@ -8,11 +8,8 @@ function getCompanyInfo(id){
   });
 }
 
-function myAccordion() {
-  $( "#pure-stats" ).accordion({
-    collapsible: true,
-    autoHeight: true,
-    active: false
+function myTabs() {
+  $( "#pure-stats" ).tabs({
   });
 };
 
@@ -20,8 +17,6 @@ function stateOnClick(){
   $('#state').on('click', function(event){
     console.log("whatup");
     event.preventDefault();
-    console.log($(this));
-    console.log(this);
     $(this).addClass('selected');
   });
 };
