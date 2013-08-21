@@ -138,7 +138,7 @@ var MapView = {
 };
 
 $(document).ready(function(){
-  MapView.init();
-  $( "#pure-stats" ).accordion();
+  myAccordion(); //Accordion MUST be called within this document.ready
+  stateOnClick();
 });
 

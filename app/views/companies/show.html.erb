@@ -154,7 +154,7 @@
 
   </div>
 
-  <div id="slider" class="slider data">
+  <div id="slider" class="slider data" data-id='<%= @company.id %>'>
     
     <ul id='local' class="chart">
       <a href="#"> <canvas id="local-chart" width="800" height="600"></a>
@@ -213,8 +213,7 @@
   <p>footer</p>
 </footer>
 
-<script>
-  $(function() {
-    $( '#slider' ).catslider();
-  });
+<script type="text/javascript">
+  var id = <%= @company.id %>;
+  getCompanyInfo(id);
 </script>
