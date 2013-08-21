@@ -1,5 +1,4 @@
 var MapView = {
-
   init: function() {
     var mapOptions = {
         zoom: 10,
@@ -14,13 +13,11 @@ var MapView = {
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     this.placesMarkers = [];
 
-    // set map center
     this.setUserLocation();
     this.search();
 
     google.maps.event.addListener(this.map, 'idle', function() {
-      console.log("Idle event fired!");
-      that.getCompanies();
+      that.loadData();
     });
   },
    renderPlaceMarker: function(place) {
@@ -34,7 +31,6 @@ var MapView = {
     google.maps.event.addListener(marker, 'click', function() {
       var infowindow = new google.maps.InfoWindow();
         infowindow.setContent(place.name);
-        console.log(this);
         infowindow.open(that.map, this);
       });
 
@@ -50,11 +46,10 @@ var MapView = {
 
     google.maps.event.addListener(this.searchBox, 'places_changed', function() {
       var places = that.searchBox.getPlaces();
-      console.log(places);
 
       for (var i = 0, marker; marker = that.placesMarkers[i]; i++) {
         marker.setMap(null);
-      }
+      };
 
       placeMarkers = []
       var bounds = new google.maps.LatLngBounds();
@@ -76,12 +71,12 @@ var MapView = {
       that.searchBox.setBounds(bounds);
     });
   },
-  getCompanies: function() {
+  // TODO: move this out of this object
+  loadData: function() {
     var bounds = this.getTheBounds();
     var that = this;
-    console.log("Firing GET request!");
-    $.get('/companies/data', bounds, function(response) {
-      console.log("Clearing companies and rendering new ones!");
+
+    Company.getWithinBounds(bounds, function(response) {
       that.clearMapMarkers();
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
@@ -89,13 +84,10 @@ var MapView = {
       }
       that.startMarkerManager();
     });
-
   },
-
   renderMarker: function(company) {
     var that = this;
     var customPin = '/assets/markerRed.png';
-    console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -103,9 +95,9 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      that.activeMarker = marker
+      that.activeMarker = marker;
       that.activeMarker.setIcon('/assets/marker2.png');
-      that.openSideBar(company);
+      Sidebar.open(company);
       that.showInfoBox(company, that.activeMarker);
     });
     return marker;
@@ -122,8 +114,6 @@ var MapView = {
   },
 
   startMarkerManager: function(){
-    console.log(this.markers.length);
-    // this.markerManager = new MarkerManager(this.map);
     var that = this;
   },
 
@@ -134,26 +124,9 @@ var MapView = {
   showInfoBox: function(company, marker) {
     var infowindow = new google.maps.InfoWindow();
     contentString = "<div><h3>" + company.trade_name + "</h3><h2>" + company.letter_grade + "</h2></div>";
-    console.log(company.trade_name + " " + company.letter_grade);
-    console.log(company.letter_grade);
     infowindow.setContent(contentString);
     infowindow.open(this.map, marker);
   },
-  openSideBar: function(company) {
-    var that = this;
-    var companyData = that.renderSideBar(company);
-    $("#biz-info").children().remove();
-    $("#biz-info").append(companyData);
-  },
-  renderSideBar: function(company) {
-    return $("<h3>" + company["trade_name"] + "</h3>" +
-             "<h3>" + company["letter_grade"] + "</h3>" +
-             "<span class='fade'>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</span>" +
-             "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
-             "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
-             "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>")
-  },
-
   getTheBounds: function() {
     var bounds = this.map.getBounds();
 
