@@ -70,13 +70,6 @@ var MapView = {
     console.log(this.markers.length);
     // this.markerManager = new MarkerManager(this.map);
     var that = this;
-
-    // google.maps.event.addListener(that.markerManager, 'loaded', function(){
-    //   that.markerManager.addMarkers(that.markers, 15);
-    //   that.markerManager.addMarkers(that.markers, 10);
-    //   that.markerManager.addMarkers(that.markers, 5);
-    //   that.markerManager.refresh();
-    // });
   },
 
   deleteOverlays: function() {
