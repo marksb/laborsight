@@ -4,6 +4,7 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'json'
+gem 'always_verify_ssl_certificates'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -11,6 +12,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Frontend Framework
 gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
