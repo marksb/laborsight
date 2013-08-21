@@ -23,6 +23,23 @@ var MapView = {
       that.getCompanies();
     });
   },
+   renderPlaceMarker: function(place) {
+    var that = this;
+    var marker = new google.maps.Marker({
+      map: that.map,
+      title: place.name,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      var infowindow = new google.maps.InfoWindow();
+        infowindow.setContent(place.name);
+        console.log(this);
+        infowindow.open(that.map, this);
+      });
+
+    return marker;
+  },
 
   search: function() {
 
@@ -48,7 +65,7 @@ var MapView = {
           title: place.name,
           position: place.geometry.location
         });
-        placeMarkers.push(marker);
+        placeMarkers.push(that.renderPlaceMarker(place));
         bounds.extend(place.geometry.location);
       }
       that.map.fitBounds(bounds);
@@ -59,7 +76,6 @@ var MapView = {
       that.searchBox.setBounds(bounds);
     });
   },
-
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
@@ -90,7 +106,7 @@ var MapView = {
       that.activeMarker = marker
       that.activeMarker.setIcon('/assets/marker2.png');
       that.openSideBar(company);
-
+      that.showInfoBox(company, that.activeMarker);
     });
     return marker;
   },
@@ -115,14 +131,20 @@ var MapView = {
     var that = this;
     that.markers = [];
   },
-
+  showInfoBox: function(company, marker) {
+    var infowindow = new google.maps.InfoWindow();
+    contentString = "<div><h3>" + company.trade_name + "</h3><h2>" + company.letter_grade + "</h2></div>";
+    console.log(company.trade_name + " " + company.letter_grade);
+    console.log(company.letter_grade);
+    infowindow.setContent(contentString);
+    infowindow.open(this.map, marker);
+  },
   openSideBar: function(company) {
     var that = this;
     var companyData = that.renderSideBar(company);
     $("#biz-info").children().remove();
     $("#biz-info").append(companyData);
   },
-
   renderSideBar: function(company) {
     return $("<h3>" + company["trade_name"] + "</h3>" +
              "<h3>" + company["letter_grade"] + "</h3>" +
