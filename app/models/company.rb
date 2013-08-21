@@ -19,4 +19,31 @@ class Company < ActiveRecord::Base
                   :flsa_ee_atp_count, :bw_atp_amt, :flsa_mw_bw_atp_amt, :flsa_ot_bw_atp_amt, :flsa_15a3_bw_atp_amt, :address_id,
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
+
+  def avg_penalty_by_industry
+    industry = Industry.find_by_id(industry_id)
+    companies = industry.companies
+    avg_penalty = []
+    companies.each do |company|
+      avg_penalty << company.bw_atp_amt
+    end
+    median(avg_penalty) 
+  end
+
+  def avg_cl_by_industry
+    industry = Industry.find_by_id(industry_id)
+    companies = industry.companies
+    avg_penalty = []
+    companies.each do |company|
+      avg_penalty << company.flsa_cl_violtn_count
+    end
+    median(avg_penalty) 
+  end
+
+  def median(array)
+    sorted = array.sort
+    len = sorted.length
+    return (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+  end
+              
 end

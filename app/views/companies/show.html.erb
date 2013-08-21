@@ -7,15 +7,23 @@
     <h1 class='page-title'><%= @company.trade_name %></h1>
     <p class='fade'><%= @company.address.street %>, <%= @company.address.city %>, <%= @company.address.state %>, <%= @company.address.zip %> </p>
     <p class='fade'>Inspected:  <%= @company.findings_start_date.strftime("%m-%d-%Y") %> to <%= @company.findings_end_date.strftime("%m-%d-%Y") %> </p>
+    <p>Industry: <%= Industry.find(@company.industry_id).naic_code_description %></p>
   </div>
 
   <h1 class='grade'><span><%= @company.assign_letter_grade %></span></h1>
 
   <h1 class="stats-header">Company Statistics</h1>
   <div id="pure-stats">
-    <h3><span>▹</span> Child Labor</h3>
-    <div>
-      <span class="fade">The federal child labor provisions, authorized by the Fair Labor Standards Act (FLSA) of 1938, also known as the child labor laws, were enacted to ensure that when young people work, the work is safe and does not jeopardize their health, well-being or educational opportunities.</span>
+    <ul>
+      <li><a href="#child-labor">Child Labor</a></li>
+      <li><a href="#backwages">Backwages</a></li>
+      <li><a href="#fmla">FMLA</a></li>
+      <li><a href="#work-visas">Work Visas</a></li>
+      <li><a href="#migrant">MSPA</a></li>
+    </ul>
+    
+    <div id="child-labor">
+      <p class="fade">The federal child labor provisions, authorized by the Fair Labor Standards Act (FLSA) of 1938, also known as the child labor laws, were enacted to ensure that when young people work, the work is safe and does not jeopardize their health, well-being or educational opportunities.</p>
         <% if @company.flsa_cl_violtn_count == 0 && @company.flsa_cl_minor_count == 0 && @company.flsa_cmp_assd_amt == 0 %>
         <h4 class="green good-standing"><%= @company.trade_name %> has no child labor violations.</h4>
         <% else %>
@@ -36,11 +44,10 @@
       <% end %>
     </div>
 
-    <h3><span>▹</span> Backwages</h3>
-    <div>
-      <span class="fade">
+    <div id="backwages">
+      <p class="fade">
         A common remedy for wage violations is an order that the employer make up the difference between what the employee was paid and the amount he or she should have been paid. The amount of this sum is often referred to as "back pay." 
-      </span>
+      </p>
       <% if @company.flsa_15a3_bw_atp_amt == 0 && @company.bw_atp_amt == 0 && @company.flsa_mw_bw_atp_amt == 0 && @company.flsa_ot_bw_atp_amt == 0 %>
       <h4 class="green good-standing"><%= @company.trade_name %> has paid no back wages.</h4>
       <% else %>
@@ -65,12 +72,10 @@
       <% end %>
   </div>
 
-
-  <h3><span>▹</span> Family & Medical Leave Act</h3>
-  <div>
-    <span class="fade">
+  <div id="fmla">
+    <p class="fade">
     The Family & Medical Leave Act entitles eligible employees of covered employers to take unpaid, job-protected leave for specified family and medical reasons with continuation of group health insurance coverage under the same terms and conditions as if the employee had not taken leave. 
-    </span>
+    </p>
     <% if @company.fmla_violtn_cnt == 0 && @company.fmla_bw_atp_amt == 0 && @company.fmla_ee_atp_cnt == 0 && @company.fmla_cmp_assd_amt == 0 %>
     <h4 class="green good-standing"><%= @company.trade_name %> has no Family & Medical Leave Act Violations.</h4>
     <% else %>
@@ -95,10 +100,9 @@
     <% end %>
   </div>
 
-    <h3><span>▹</span>Non-Immigrant Work Visas</h3>
-    <div> 
-      <span class="fade">The H-1B visa is a non-immigrant visa that allows business professionals to work in the United States for a specific amount of time. The purpose of the H-1B visa is to give U.S. employers the opportunity to hire foreign professionals if a U.S. citizen or resident is not available. 
-      </span>
+    <div id="work-visas"> 
+      <p class="fade">The H-1B visa is a non-immigrant visa that allows business professionals to work in the United States for a specific amount of time. The purpose of the H-1B visa is to give U.S. employers the opportunity to hire foreign professionals if a U.S. citizen or resident is not available. 
+      </p>
       <% if @company.h1b_violtn_cnt == 0 && @company.h1b_bw_atp_amt == 0 && @company.h1b_ee_atp_cnt == 0 && @company.h1b_cmp_assd_amt == 0 %>
         <h4 class="green good-standing"><%= @company.trade_name %> has no violations related to non-immigrant work visas.</h4>
       <% else %>
@@ -123,10 +127,8 @@
       <% end %>
     </div>
 
-    <h3><span>▹</span> Migrant & Seasonal Agricultural Worker Protection Act</h3>
-
-    <div>
-      <span class="fade">The Migrant & Seasonal Agricultural Worker Protection Act (MSPA) protects migrant and seasonal agricultural workers by establishing employment standards related to wages, housing, transportation, disclosures and recordkeeping.</span>
+    <div id="migrant">
+      <p class="fade">The Migrant & Seasonal Agricultural Worker Protection Act (MSPA) protects migrant and seasonal agricultural workers by establishing employment standards related to wages, housing, transportation, disclosures and recordkeeping.</p>
 
       <% if @company.mspa_violtn_cnt == 0 && @company.mspa_bw_atp_amt == 0 && @company.mspa_ee_atp_cnt == 0 && @company.mspa_cmp_assd_amt == 0 %>
         <h4 class="green good-standing"><%= @company.trade_name %> has no Migrant & Seasonal Agricultural Worker Protection Act Violations.</h4>
@@ -169,8 +171,8 @@
     </ul>
 
     <nav>
-      <a href="#" id='local' class='selected'><h6>Local</h6></a>
-      <a href="#" id='state' ><h6>State</h6></a>
+      <a href="#" id='local' class='selected'><h6>By Industry</h6></a>
+      <a href="#" id='state' ><h6>Local</h6></a>
       <a href="#" id='national'><h6>National</h6></a>
     </nav>
   </div>
