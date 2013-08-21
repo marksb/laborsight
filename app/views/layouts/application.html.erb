@@ -4,12 +4,12 @@
     <title>Department of Labor Challenge</title>
     <%= stylesheet_link_tag    "normalize", :media => "all" %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
-    
+
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
 
   <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?sensor=false">
+    src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places">
   </script>
 
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -17,7 +17,7 @@
     <script>
     function createChart(){
       var ctx = document.getElementById("local-chart").getContext("2d");
- 
+
       var data = {
           labels : ["January","February","March","April","May","June","July"],
           datasets : [
@@ -33,12 +33,12 @@
                       }
                      ]
                 };
- 
+
       options = {
           barDatasetSpacing : 15,
           barValueSpacing: 10
       };
- 
+
         new Chart(ctx).Bar(data, options);
      }
      </script>

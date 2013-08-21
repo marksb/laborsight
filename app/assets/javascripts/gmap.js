@@ -8,16 +8,55 @@ var MapView = {
       }
     };
 
+    var that = this;
+
     this.markers = [];
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    this.placesMarkers = [];
 
     // set map center
     this.setUserLocation();
-    var that = this;
+    this.search();
 
     google.maps.event.addListener(this.map, 'idle', function() {
       console.log("Idle event fired!");
       that.getCompanies();
+    });
+  },
+
+  search: function() {
+
+    var that = this;
+
+    var input = (document.getElementById('target'));
+    this.searchBox = new google.maps.places.SearchBox(input);
+
+    google.maps.event.addListener(this.searchBox, 'places_changed', function() {
+      var places = that.searchBox.getPlaces();
+      console.log(places);
+
+      for (var i = 0, marker; marker = that.placesMarkers[i]; i++) {
+        marker.setMap(null);
+      }
+
+      placeMarkers = []
+      var bounds = new google.maps.LatLngBounds();
+
+      for (var i = 0, place; place = places[i]; i++) {
+        var marker = new google.maps.Marker({
+          map: that.map,
+          title: place.name,
+          position: place.geometry.location
+        });
+        placeMarkers.push(marker);
+        bounds.extend(place.geometry.location);
+      }
+      that.map.fitBounds(bounds);
+    });
+
+    google.maps.event.addListener(this.map, 'bounds_changed', function() {
+      var bounds = that.map.getBounds();
+      that.searchBox.setBounds(bounds);
     });
   },
 
