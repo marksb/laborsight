@@ -19,6 +19,10 @@
 
 
 //***** Colors ******//
+.green {
+  color: $green;
+}
+
 .yelp {
   color: $yelp;
 }
@@ -191,9 +195,11 @@ footer {
 }
 
 .page-title {
-  text-transform: uppercase;
-  margin: 0 auto;
+  font-weight: 700;
+  font-size: 2.5em;
   line-height: 1em;
+  margin: 0 auto;
+  text-transform: uppercase;
 }
 
 //***** Accordion ******//
@@ -201,7 +207,12 @@ footer {
   @include pad();
   color: $blue;
   clear: both;
+  font-size: 2.5em;
   font-weight: 300;
+}
+
+.good-standing {
+  font-size: 1.25em;
 }
 
 #pure-stats {
@@ -210,11 +221,17 @@ footer {
 
   h3 {
     border-bottom: 1px dashed #999999;
+    font-size: 1.75em;
+    font-weight: 300;
     margin: .5em 0;
   }
 
   h3:focus {
     outline: none;
+  }
+
+  div {
+    padding: 0 0 2em 0;
   }
 } 
 
