@@ -29,7 +29,6 @@ var MapView = {
     }});
 
       google.maps.event.addListener(that.map, 'idle', function() {
-        console.log("Idle event fired!");
         that.getCompanies();
       });
 
@@ -38,8 +37,6 @@ var MapView = {
     var that = this;
     var data = neighborhood_info;
     $.get('/companies/neighborhood', data, function(response) {
-      console.log("This is the response...");
-      console.log(response);
       that.renderInitialNeighborhoodGrade(response);
     });
   },
@@ -47,31 +44,22 @@ var MapView = {
     var that = this;
     var hoodData = "<p>" + data.neighborhood + "<p>" +
                    "<p>" + data.grade + "<p>";
-    console.log("The hood data...");
-    console.log(hoodData);
     $("#hood-info").append(hoodData);
   },
-
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
-    console.log("Firing GET request!");
     $.get('/companies/data', bounds, function(response) {
-      console.log("Clearing companies and rendering new ones!");
       that.clearMapMarkers();
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
         that.markers.push(that.renderMarker(company));
       }
-      that.startMarkerManager();
     });
-
   },
-
   renderMarker: function(company) {
     var that = this;
     var customPin = '/assets/markerRed.png';
-    // console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -79,14 +67,13 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      that.activeMarker = marker
+      that.activeMarker = marker;
       that.activeMarker.setIcon('/assets/marker2.png');
       that.openSideBar(company);
 
     });
     return marker;
   },
-
   clearMapMarkers: function() {
     var that = this;
       if(that.markers && that.markers.length !== 0){
@@ -96,23 +83,13 @@ var MapView = {
     }
    that.markers = [];
   },
-
-  startMarkerManager: function(){
-    // console.log(this.markers.length);
-    // this.markerManager = new MarkerManager(this.map);
-    var that = this;
-  },
-
   deleteOverlays: function() {
     var that = this;
     that.markers = [];
   },
-
   openSideBar: function(company) {
     var that = this;
     var hoodData = "<h1 class='grade'>" + company.neighborhood_grade + "</h1>";
-    console.log("The hood data...");
-    console.log(hoodData);
     var companyData = that.renderSideBar(company);
     $("#hood-info").children().remove();
     $("#hood-info").append(hoodData);
