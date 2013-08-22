@@ -1,19 +1,20 @@
 var MapView = {
-
   init: function() {
     var mapOptions = {
         zoom: 10,
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: style,
+        disableDefaultUI: true,
         scaleControlOptions: {
       }
     };
 
+    var that = this;
+
     this.markers = [];
 
-
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-    var that = this;
+    this.placesMarkers = [];
 
     this.geolocateUser({success: function(coords) {
       that.map.setCenter(coords);
@@ -31,7 +32,7 @@ var MapView = {
       google.maps.event.addListener(that.map, 'idle', function() {
         that.getCompanies();
       });
-
+    this.search();
   },
   getNeighborhoodGrade: function(neighborhood_info) {
     var that = this;
@@ -49,7 +50,77 @@ var MapView = {
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
-    $.get('/companies/data', bounds, function(response) {
+
+    google.maps.event.addListener(this.map, 'idle', function() {
+      that.loadData();
+    });
+  },
+   renderPlaceMarker: function(place) {
+    var that = this;
+    var marker = new google.maps.Marker({
+      map: that.map,
+      title: place.name,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      windowOptions = {
+        content: place.name,
+        size: new google.maps.Size(500,100),
+        maxWidth: 300
+      };
+      var infoWindow = new google.maps.InfoWindow(windowOptions);
+        infoWindow.open(that.map, this);
+      });
+
+    return marker;
+  },
+  search: function() {
+
+    var that = this;
+
+    var input = (document.getElementById('target'));
+    //var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    var options = {
+      types: ['(postal_code)'],
+      componentRestrictions: {country: "us"}
+    };
+
+    this.searchBox = new google.maps.places.SearchBox(input);
+
+    google.maps.event.addListener(this.searchBox, 'places_changed', function() {
+      var places = that.searchBox.getPlaces();
+
+      for (var i = 0, marker; marker = that.placesMarkers[i]; i++) {
+        marker.setMap(null);
+      };
+
+      placeMarkers = []
+      var bounds = new google.maps.LatLngBounds();
+
+      for (var i = 0, place; place = places[i]; i++) {
+        var marker = new google.maps.Marker({
+          map: that.map,
+          title: place.name,
+          position: place.geometry.location
+        });
+        placeMarkers.push(that.renderPlaceMarker(place));
+        bounds.extend(place.geometry.location);
+      }
+      that.map.fitBounds(bounds);
+    });
+
+    google.maps.event.addListener(this.map, 'bounds_changed', function() {
+      var bounds = that.map.getBounds();
+      that.searchBox.setBounds(bounds);
+    });
+  },
+  // TODO: move this out of this object
+  loadData: function() {
+    var bounds = this.getTheBounds();
+    var that = this;
+    Company.getWithinBounds(bounds, function(response) {
       that.clearMapMarkers();
       for (var i=0; i < response.length; i++) {
         var company = $.parseJSON( response[i] );
@@ -59,7 +130,9 @@ var MapView = {
   },
   renderMarker: function(company) {
     var that = this;
-    var customPin = '/assets/markerRed.png';
+
+    var customPin = '/assets/maps/markerRed.png';
+
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -67,10 +140,13 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
+      if (that.oldMarker !== undefined) {
+        that.oldMarker.setIcon('/assets/maps/markerRed.png');
+      }
       that.activeMarker = marker;
-      that.activeMarker.setIcon('/assets/marker2.png');
-      that.openSideBar(company);
-
+      that.activeMarker.setIcon('/assets/maps/marker2.png');
+      that.oldMarker = that.activeMarker;
+      that.showInfoBox(company, that.activeMarker);
     });
     return marker;
   },
@@ -87,24 +163,6 @@ var MapView = {
     var that = this;
     that.markers = [];
   },
-  openSideBar: function(company) {
-    var that = this;
-    var hoodData = "<h1 class='grade'>" + company.neighborhood_grade + "</h1>";
-    var companyData = that.renderSideBar(company);
-    $("#hood-info").children().remove();
-    $("#hood-info").append(hoodData);
-    $("#biz-info").children().remove();
-    $("#biz-info").append(companyData);
-  },
-
-  renderSideBar: function(company) {
-    return $("<h3>" + company["trade_name"] + "</h3>" +
-             "<h3>" + company["letter_grade"] + "</h3>" +
-             "<span class='fade'>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</span>" +
-             "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
-             "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
-             "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>");
-  },
   getNeighborhood: function(latlng, callbacks) {
     geocoder = new google.maps.Geocoder();
 
@@ -118,6 +176,21 @@ var MapView = {
         return {error: "Not Available"};
       }
     });
+  },
+  showInfoBox: function(company, marker) {
+    windowOptions = {
+        content: contentString,
+        size: new google.maps.Size(500,100),
+        maxWidth: 500,
+      };
+    var infowindow = new google.maps.InfoWindow(windowOptions);
+    var contentString = "<div id='info-box' class='title-case'><h4>"
++ company.trade_name + "<hr class='divider'></h4> <span class='fade'>"
++ company["street"] + "<br/>" + company["city"] + ", "
++ company["state"] + " " + company["zip"] + "</span> <h2 class='popup-grade'>" + company.letter_grade + "</h2></div>" +
+"<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
+    infowindow.setContent(contentString);
+    infowindow.open(this.map, marker);
   },
   getTheBounds: function() {
     var bounds = this.map.getBounds();
@@ -157,7 +230,7 @@ var MapView = {
 };
 
 $(document).ready(function(){
-  MapView.init();
-  $( "#pure-stats" ).accordion();
+  myTabs(); //Tabs MUST be called within this document.ready
+  stateOnClick();
 });
 

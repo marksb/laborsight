@@ -13,12 +13,20 @@
 */
 
 //***** Global ******//
+* {
+  margin: 0;
+}
+
 .right {
   float: right;
 }
 
 
 //***** Colors ******//
+.green {
+  color: $green;
+}
+
 .yelp {
   color: $yelp;
 }
@@ -44,15 +52,46 @@
 #side-bar {
   @include outer-container;
   @include span-columns(3);
-  @include pad(); 
+  @include pad();
   font-size: 80%;
+  min-height: 100%;
+  margin-bottom: -30px;
     h3 {
-      color: $dark-gray;
+      color: $blue;
+      font-size: 1.5em;
     }
 
     .sidebar-info {
       margin: 2em 0;
     }
+
+    div {
+      margin: 2em 0;
+    }
+
+    tr:nth-child(odd) { 
+      background-color: $highlight-gray;
+    }
+    tr:nth-child(even){ 
+      background-color: $white; 
+    }
+
+    td {
+      border: none;
+    }
+}
+
+#side-bar:after{
+  content: "";
+  display: block;
+}
+
+.sidebar-nav, .sidebar-nav:after {
+  height: 30px;
+}
+
+.sidebar-nav {
+  background-color: $dark-gray;
 }
 
 #map {
@@ -64,6 +103,81 @@
 #map-canvas {
   height: 100%;
 }
+
+//***** Search ******//
+#panel {
+  opacity: .7;
+  position: absolute;
+  right: 1.5%;
+  top: 1.75em;
+  z-index: 50;
+
+  #target {
+    @include background-image(url("/assets/maps/search.png"));
+    background-position: 4% 43%;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    padding:8px 17px 8px 40px;
+  }
+}
+
+.pac-container {
+  opacity: .7;
+}
+
+//***** Info Box ******//
+
+#info-box {
+  min-height: 100px;
+  height: 100%;
+  min-width: 200px;
+  padding: 10px 0;
+
+  h4 {
+    margin-bottom: 5px; 
+  }
+
+  span {
+    font-family: $base-font-family;
+    float: left;
+  }
+
+}
+
+.popup-address {
+  @extend .fade;
+  font-family: $base-font-family;
+  float: left;
+}
+
+.popup-grade {
+  background-color: $red;
+  color: $white;
+  float: right;
+  text-align: center;
+  margin: 2.35765%;
+  width: 40px;
+  height: 0;
+  padding-bottom: 40px;
+
+  span {
+    font-size: 10vh;
+    position: relative;
+    width: 100%;
+    top: 20%;
+  }
+}
+
+a.more-info, .gm-style .gm-style-iw a {
+  clear: both;
+  font-family: $header-font-family;
+  font-weight: 700;
+}
+
+.gm-style .gm-style-iw {
+  margin-left: 6px;
+}
+
 
 //***** Profile ******//
 .action {
@@ -175,29 +289,73 @@ footer {
 }
 
 .page-title {
-  text-transform: uppercase;
-  margin: 0 auto;
+  font-weight: 700;
+  font-size: 2.5em;
   line-height: 1em;
+  margin: 0 auto;
+  text-transform: uppercase;
 }
 
-//***** Accordion ******//
+//***** Tabs ******//
+.stats-header {
+  @include pad();
+  color: $blue;
+  clear: both;
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
 #pure-stats {
   @include pad();
   clear: both;
+  text-align: justify;
+
+  ul li {
+    @include span-columns(2.4);
+    font-family: $header-font-family;
+    background-color: $highlight-gray;
+    display: inline;
+    font-size:  1.25em;
+    padding: .5em;
+    text-align: center;
+  }
+
+  .ui-state-active a, .ui-state-active a:link {
+    color: $green;
+  }
 
   h3 {
     border-bottom: 1px dashed #999999;
+    font-size: 1.75em;
+    font-weight: 300;
     margin: .5em 0;
   }
 
-  h3:focus {
+  li:focus {
     outline: none;
+  }
+
+  div {
+    border-top: 1px dashed #999999;
+    clear: both;
+    height: 14.5em;
+    margin-top: 1em;
+    padding: 0 0 2em 0;
+  }
+
+  p {
+    margin-top: 1em;
+  }
+
+  .good-standing {
+  font-size: 1.25em;
+  margin: 2em 0;
   }
 } 
 
 //***** Chart ******//
 
-canvas{
+canvas {
   width: 100% !important;
   height: auto !important;
   max-width: 600px;
@@ -212,11 +370,11 @@ canvas{
 
 
 .arrow-down {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  
+
   border-top: 20px solid #f00;
 }
 

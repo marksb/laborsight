@@ -56,5 +56,11 @@ include ApplicationHelper
   def show
     @company = Company.find(params[:id])
   end
+
+  def chart
+    @company = Company.find(params[:id])
+    render partial: 'chart'
+  end
+
 end
 
