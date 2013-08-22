@@ -51,7 +51,7 @@ var MapView = {
     var bounds = this.getTheBounds();
     var that = this;
 
-    google.maps.event.addListener(this.map, 'idle', function() {
+    google.maps.event.addListener(this.map, 'tilesloaded', function() {
       that.loadData();
     });
   },
