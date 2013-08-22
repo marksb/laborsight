@@ -45,6 +45,14 @@ include ApplicationHelper
     render :json => companies
   end
 
+  def neighborhood
+    grade = Address.where(zip: params[:zip]).first.assign_neighborhood_grade
+
+    neighborhood = {neighborhood: params[:neighborhood], grade: grade}.to_json
+
+    render :json => neighborhood
+  end
+
   def show
     @company = Company.find(params[:id])
   end

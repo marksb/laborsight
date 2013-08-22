@@ -34,11 +34,24 @@ var MapView = {
       });
 
   },
-  getNeighborhoodGrade: function() {
-    // get request
-    // render the grade
-    alert("Get neighborhood grade!");
+  getNeighborhoodGrade: function(neighborhood_info) {
+    var that = this;
+    var data = neighborhood_info;
+    $.get('/companies/neighborhood', data, function(response) {
+      console.log("This is the response...");
+      console.log(response);
+      that.renderInitialNeighborhoodGrade(response);
+    });
   },
+  renderInitialNeighborhoodGrade: function(data) {
+    var that = this;
+    var hoodData = "<p>" + data.neighborhood + "<p>" +
+                   "<p>" + data.grade + "<p>";
+    console.log("The hood data...");
+    console.log(hoodData);
+    $("#hood-info").append(hoodData);
+  },
+
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
