@@ -1,6 +1,10 @@
 var Sidebar = {
   open: function(company) {
-    var companyData = this.renderCompany(company);
+    var that = this;
+    var hoodData = "<h1 class='grade'>" + company.neighborhood_grade + "</h1>";
+    var companyData = that.renderSideBar(company);
+    $("#hood-info").children().remove();
+    $("#hood-info").append(hoodData);
     $("#biz-info").children().remove();
     $("#biz-info").append(companyData);
   },
