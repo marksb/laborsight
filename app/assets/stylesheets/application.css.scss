@@ -104,17 +104,12 @@
   height: 100%;
 }
 
-#info-box {
-  height: 150px;
-  width: 200px;
-}
-
 //***** Search ******//
 #panel {
-  opacity: .6;
+  opacity: .7;
   position: absolute;
   right: 1.5%;
-  top: 1.25em;
+  top: 1.75em;
   z-index: 50;
 
   #target {
@@ -127,8 +122,58 @@
 }
 
 .pac-container {
-  opacity: .6;
+  opacity: .7;
 }
+
+//***** Info Box ******//
+
+#info-box {
+  min-height: 100px;
+  height: 100%;
+  min-width: 200px;
+  padding: 10px 0;
+
+  h4 {
+    margin-bottom: 5px; 
+  }
+
+  span {
+    font-family: $base-font-family;
+    float: left;
+  }
+
+}
+
+.popup-address {
+  @extend .fade;
+  font-family: $base-font-family;
+  float: left;
+}
+
+.popup-grade {
+  background-color: $red;
+  color: $white;
+  float: right;
+  text-align: center;
+  margin: 2.35765%;
+  width: 40px;
+  height: 0;
+  padding-bottom: 40px;
+
+  span {
+    font-size: 10vh;
+    position: relative;
+    width: 100%;
+    top: 20%;
+  }
+}
+
+a.more-info, .gm-style .gm-style-iw a {
+  clear: both;
+  font-family: $header-font-family;
+  font-weight: 700;
+}
+
 
 //***** Profile ******//
 .action {
