@@ -20,6 +20,19 @@ class Company < ActiveRecord::Base
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
 
+  def as_json
+    { id: company.id,
+      trade_name: trade_name,
+      letter_grade: assign_letter_grade,
+      neighborhood_grade: address.assign_neighborhood_grade,
+      street: address.street,
+      city: address.city,
+      state: address.state,
+      zip: address.zip,
+      latitude: address.latitude,
+      longitude: address.longitude }
+  end
+
   def avg_penalty_by_industry
     industry = Industry.find_by_id(industry_id)
     companies = industry.companies
