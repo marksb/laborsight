@@ -1,0 +1,27 @@
+function createChart(){
+
+  var ctx = document.getElementById("local-chart").getContext("2d");
+
+  var data = {
+      labels : ["Total Child Labor Violations", "Total Penalties Paid"],
+      datasets : [
+                  {
+                      fillColor : "rgba(221, 86, 66, 0.5)",
+                      strokeColor : "rgba(221, 86, 66, 1)",
+                      data : [<%= @company.flsa_cl_violtn_count %>, <%= @company.bw_atp_amt %>] 
+                  },
+                  {
+                      fillColor : "rgba(93, 124, 168, 0.5)",
+                      strokeColor : "rgba(93, 124, 168, 1)",
+                      data : [<%= @company.avg_cl_by_industry %>, <%= @company.avg_penalty_by_industry %>]
+                  }
+                 ]
+            };
+
+  options = {
+      barDatasetSpacing : 15,
+      barValueSpacing: 10
+  };
+
+    new Chart(ctx).Bar(data, options);
+ };
