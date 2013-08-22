@@ -14,15 +14,18 @@ function myTabs() {
 };
 
 function stateOnClick(){
-  $('#state').on('click', function(event){
-    console.log("whatup");
+  $('#slider a').on('click', function(event){
     event.preventDefault();
+    $('#slider a').removeClass('selected');
     $(this).addClass('selected');
+    console.log($('#slider ul'))
+    $('#slider ul').hide();
+    var id = $(this).attr('id');
+    $('slider ul #' + id).show();
   });
 };
 
 $( document ).ready(function() {
   MapView.init();
-  myAccordion();
   stateOnClick();
 });

@@ -20,12 +20,12 @@ class Company < ActiveRecord::Base
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
 
-  def avg_penalty_by_industry
+  def fmla_count_by_industry
     industry = Industry.find_by_id(industry_id)
     companies = industry.companies
     avg_penalty = []
     companies.each do |company|
-      avg_penalty << company.bw_atp_amt
+      avg_penalty << fmla_violtn_cnt
     end
     median(avg_penalty) 
   end
@@ -39,6 +39,17 @@ class Company < ActiveRecord::Base
     end
     median(avg_penalty) 
   end
+
+  def avg_h1b_by_industry
+    industry = Industry.find_by_id(industry_id)
+    companies = industry.companies
+    avg_penalty = []
+    companies.each do |company|
+      avg_penalty << company.h1b_violtn_cnt
+    end
+    median(avg_penalty) 
+  end
+
 
   def median(array)
     sorted = array.sort

@@ -156,23 +156,35 @@
 
   </div>
 
+  <h1 class="stats-header">Side-By-Side</h1>
+
   <div id="slider" class="slider data" data-id='<%= @company.id %>'>
     
-    <ul id='local' class="chart">
+    <% if @company.industry_id %>
+    <ul id='industry' class="chart">
+      <script type="text/javascript">
+        var id = <%= @company.id %>;
+        getCompanyInfo(id);
+      </script>
       <a href="#"> <canvas id="local-chart" width="800" height="600"></a>
     </ul>
+    <% else %>
+    <h6 class="center notice">No Industry data was provided for this company.</h6>
+    <% end %>
 
     <ul id='state' class="chart">
+      TESST
       <a href="#"><canvas id="local-chart" width="800" height="600"></a></a>
     </ul>
 
     <ul id='national' class="chart">
+      YEP
       <a href="#"><canvas id="local-chart" width="800" height="600"></a></canvas></a>
     </ul>
 
     <nav>
-      <a href="#" id='local' class='selected'><h6>By Industry</h6></a>
-      <a href="#" id='state' ><h6>Local</h6></a>
+      <a href="#" id='industry' class='selected'><h6>By Industry</h6></a>
+      <a href="#" id='state' ><h6>Your Neighborhood</h6></a>
       <a href="#" id='national'><h6>National</h6></a>
     </nav>
   </div>
@@ -215,7 +227,4 @@
   <p>footer</p>
 </footer>
 
-<script type="text/javascript">
-  var id = <%= @company.id %>;
-  getCompanyInfo(id);
-</script>
+
