@@ -52,7 +52,7 @@
 #side-bar {
   @include outer-container;
   @include span-columns(3);
-  @include pad(); 
+  @include pad();
   font-size: 80%;
   min-height: 100%;
   margin-bottom: -30px;
@@ -102,6 +102,11 @@
 
 #map-canvas {
   height: 100%;
+}
+
+#info-box {
+  height: 150px;
+  width: 200px;
 }
 
 //***** Profile ******//
@@ -280,7 +285,7 @@ footer {
 
 //***** Chart ******//
 
-canvas{
+canvas {
   width: 100% !important;
   height: auto !important;
   max-width: 600px;
@@ -295,11 +300,11 @@ canvas{
 
 
 .arrow-down {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  
+
   border-top: 20px solid #f00;
 }
 
