@@ -28,9 +28,8 @@ var MapView = {
         }
       });
     }});
-
       google.maps.event.addListener(that.map, 'idle', function() {
-        that.getCompanies();
+        that.loadData();
       });
     this.search();
   },
@@ -46,14 +45,6 @@ var MapView = {
     var hoodData = "<p>" + data.neighborhood + "<p>" +
                    "<p>" + data.grade + "<p>";
     $("#hood-info").append(hoodData);
-  },
-  getCompanies: function() {
-    var bounds = this.getTheBounds();
-    var that = this;
-
-    google.maps.event.addListener(this.map, 'idle', function() {
-      that.loadData();
-    });
   },
    renderPlaceMarker: function(place) {
     var that = this;
