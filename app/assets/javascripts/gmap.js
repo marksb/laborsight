@@ -94,7 +94,6 @@ var MapView = {
         var company = $.parseJSON( response[i] );
         that.markers.push(that.renderMarker(company));
       }
-      that.startMarkerManager();
     });
   },
   renderMarker: function(company) {
@@ -113,7 +112,7 @@ var MapView = {
       that.activeMarker = marker;
       that.activeMarker.setIcon('/assets/maps/marker2.png');
       that.oldMarker = that.activeMarker;
-      that.openSideBar(company);
+      that.showInfoBox(company, that.activeMarker);
     });
     return marker;
   },
