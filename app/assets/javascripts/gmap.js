@@ -9,18 +9,36 @@ var MapView = {
     };
 
     this.markers = [];
+
+
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    // set map center
-    this.setUserLocation();
     var that = this;
 
-    google.maps.event.addListener(this.map, 'idle', function() {
-      console.log("Idle event fired!");
-      that.getCompanies();
-    });
-  },
+    this.geolocateUser({success: function(coords) {
+      that.map.setCenter(coords);
 
+      that.getNeighborhood(coords, {
+        success: function(neighborhood_info) {
+          that.getNeighborhoodGrade(neighborhood_info);
+        },
+        failure: function() {
+          alert("Reverse geocoding failed!");
+        }
+      });
+    }});
+
+      google.maps.event.addListener(that.map, 'idle', function() {
+        console.log("Idle event fired!");
+        that.getCompanies();
+      });
+
+  },
+  getNeighborhoodGrade: function() {
+    // get request
+    // render the grade
+    alert("Get neighborhood grade!");
+  },
   getCompanies: function() {
     var bounds = this.getTheBounds();
     var that = this;
@@ -97,47 +115,38 @@ var MapView = {
              "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
              "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>");
   },
-  geocode: function(latlng) {
+  getNeighborhood: function(latlng, callbacks) {
     geocoder = new google.maps.Geocoder();
 
-      geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          // console.log("the results...");
-          // console.log(results);
-          var neighborhood = results[0]["address_components"][2]["short_name"];
-          var zip = results[0]["address_components"][7]["short_name"];
-          // console.log(neighborhood);
-          // console.log(zip);
-          return "Hello";
-          // return {error: null, neighborhood: neighborhood, zip: zip};
-        }
-        else {
-          return {error: "Not Available"};
-        }
-      });
+    geocoder.geocode({latLng: latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var neighborhood = results[0]["address_components"][2]["short_name"];
+        var zip          = results[0]["address_components"][7]["short_name"];
+
+        callbacks.success({neighborhood: neighborhood, zip: zip});
+      } else {
+        return {error: "Not Available"};
+      }
+    });
   },
   getTheBounds: function() {
-
     var bounds = this.map.getBounds();
-
     var neLat = this.map.getBounds().getNorthEast().lat();
     var neLng = this.map.getBounds().getNorthEast().lng();
     var seLat = this.map.getBounds().getSouthWest().lat();
     var seLng = this.map.getBounds().getSouthWest().lng();
     var centerLat = this.map.getCenter().lat();
     var centerLng = this.map.getCenter().lng();
-    var localdata = this.geocode(this.map.getCenter());
-    console.log("The local data is...")
-    console.log(localdata);
+
     return {ne: {lat: neLat, lng: neLng}, sw: {lat: seLat, lng: seLng}, center: {lat: centerLat, lng: centerLng} };
   },
-  setUserLocation: function() {
+  geolocateUser: function(callbacks) {
     var that = this;
     if(navigator.geolocation) {
       browserSupportFlag = true;
       navigator.geolocation.getCurrentPosition(function(position) {
-        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-        that.map.setCenter(initialLocation);
+        var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        callbacks.success(coords);
       }, function() {
         handleNoGeolocation(browserSupportFlag);
       });
