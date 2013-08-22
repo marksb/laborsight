@@ -29,9 +29,13 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      var infowindow = new google.maps.InfoWindow();
-        infowindow.setContent(place.name);
-        infowindow.open(that.map, this);
+      windowOptions = {
+        content: place.name,
+        size: new google.maps.Size(500,100),
+        maxWidth: 300
+      };
+      var infoWindow = new google.maps.InfoWindow(windowOptions);
+        infoWindow.open(that.map, this);
       });
 
     return marker;
@@ -122,8 +126,13 @@ var MapView = {
     that.markers = [];
   },
   showInfoBox: function(company, marker) {
-    var infowindow = new google.maps.InfoWindow();
-    contentString = "<div><h3>" + company.trade_name + "</h3><h2>" + company.letter_grade + "</h2></div>";
+    windowOptions = {
+        content: contentString,
+        size: new google.maps.Size(500,100),
+        maxWidth: 500,
+      };
+    var infowindow = new google.maps.InfoWindow(windowOptions);
+    var contentString = "<div id='info-box'><h3>" + company.trade_name + "</h3><h2>" + company.letter_grade + "</h2></div>";
     infowindow.setContent(contentString);
     infowindow.open(this.map, marker);
   },

@@ -44,7 +44,7 @@
 #side-bar {
   @include outer-container;
   @include span-columns(3);
-  @include pad(); 
+  @include pad();
   font-size: 80%;
     h3 {
       color: $dark-gray;
@@ -63,6 +63,11 @@
 
 #map-canvas {
   height: 100%;
+}
+
+#info-box {
+  height: 150px;
+  width: 200px;
 }
 
 //***** Profile ******//
@@ -193,7 +198,7 @@ footer {
   h3:focus {
     outline: none;
   }
-} 
+}
 
 //***** Chart ******//
 
@@ -212,11 +217,11 @@ canvas{
 
 
 .arrow-down {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  
+
   border-top: 20px solid #f00;
 }
 
