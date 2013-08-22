@@ -40,7 +40,7 @@ var MapView = {
   renderMarker: function(company) {
     var that = this;
     var customPin = '/assets/markerRed.png';
-    console.log(customPin);
+    // console.log(customPin);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -67,7 +67,7 @@ var MapView = {
   },
 
   startMarkerManager: function(){
-    console.log(this.markers.length);
+    // console.log(this.markers.length);
     // this.markerManager = new MarkerManager(this.map);
     var that = this;
   },
@@ -79,7 +79,12 @@ var MapView = {
 
   openSideBar: function(company) {
     var that = this;
+    var hoodData = "<h1 class='grade'>" + company.neighborhood_grade + "</h1>";
+    console.log("The hood data...");
+    console.log(hoodData);
     var companyData = that.renderSideBar(company);
+    $("#hood-info").children().remove();
+    $("#hood-info").append(hoodData);
     $("#biz-info").children().remove();
     $("#biz-info").append(companyData);
   },
@@ -90,10 +95,29 @@ var MapView = {
              "<span class='fade'>" + company["street"] + "<br/>" + company["city"] + ", " + company["state"] + " " + company["zip"] + "</span>" +
              "<p>... has " + company["flsa_cl_violtn_count"] + " child labor violations.</p>" +
              "<p>...has paid $" + company["flsa_ot_bw_atp_amt"] + " dollars for violating overtime laws</p>" +
-             "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>")
+             "<a href='/companies/" + company['id'] + "' alt='" + company['trade_name'] + "'>" + company['trade_name'] + "</a>");
   },
+  geocode: function(latlng) {
+    geocoder = new google.maps.Geocoder();
 
+      geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          // console.log("the results...");
+          // console.log(results);
+          var neighborhood = results[0]["address_components"][2]["short_name"];
+          var zip = results[0]["address_components"][7]["short_name"];
+          // console.log(neighborhood);
+          // console.log(zip);
+          return "Hello";
+          // return {error: null, neighborhood: neighborhood, zip: zip};
+        }
+        else {
+          return {error: "Not Available"};
+        }
+      });
+  },
   getTheBounds: function() {
+
     var bounds = this.map.getBounds();
 
     var neLat = this.map.getBounds().getNorthEast().lat();
@@ -102,7 +126,9 @@ var MapView = {
     var seLng = this.map.getBounds().getSouthWest().lng();
     var centerLat = this.map.getCenter().lat();
     var centerLng = this.map.getCenter().lng();
-
+    var localdata = this.geocode(this.map.getCenter());
+    console.log("The local data is...")
+    console.log(localdata);
     return {ne: {lat: neLat, lng: neLng}, sw: {lat: seLat, lng: seLng}, center: {lat: centerLat, lng: centerLng} };
   },
   setUserLocation: function() {
