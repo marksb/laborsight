@@ -48,6 +48,13 @@ var MapView = {
     var that = this;
 
     var input = (document.getElementById('target'));
+    //var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    var options = {
+      types: ['(postal_code)'],
+      componentRestrictions: {country: "us"}
+    };
+
     this.searchBox = new google.maps.places.SearchBox(input);
 
     google.maps.event.addListener(this.searchBox, 'places_changed', function() {
@@ -92,7 +99,7 @@ var MapView = {
   },
   renderMarker: function(company) {
     var that = this;
-    var customPin = '/assets/markerRed.png';
+    var customPin = '/assets/maps/markerRed.png';
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -101,10 +108,10 @@ var MapView = {
 
     google.maps.event.addListener(marker, 'click', function() {
       if (that.oldMarker !== undefined) {
-        that.oldMarker.setIcon('/assets/markerRed.png');
+        that.oldMarker.setIcon('/assets/maps/markerRed.png');
       }
       that.activeMarker = marker;
-      that.activeMarker.setIcon('/assets/marker2.png');
+      that.activeMarker.setIcon('/assets/maps/marker2.png');
       that.oldMarker = that.activeMarker;
       that.openSideBar(company);
     });

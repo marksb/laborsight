@@ -109,6 +109,27 @@
   width: 200px;
 }
 
+//***** Search ******//
+#panel {
+  opacity: .6;
+  position: absolute;
+  right: 1.5%;
+  top: 1.25em;
+  z-index: 50;
+
+  #target {
+    @include background-image(url("/assets/maps/search.png"));
+    background-position: 4% 43%;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    padding:8px 17px 8px 40px;
+  }
+}
+
+.pac-container {
+  opacity: .6;
+}
+
 //***** Profile ******//
 .action {
   @include span-columns(12);
