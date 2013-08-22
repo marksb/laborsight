@@ -20,6 +20,23 @@ class Company < ActiveRecord::Base
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
 
+  def peer_companies
+    industry = Industry.find_by_id(industry_id)
+    companies = industry.companies
+  end
+
+  def fmla_violtn_cnt_national
+    median(Company.pluck(:fmla_violtn_cnt))
+  end
+
+  def flsa_cl_violtn_cnt_national
+    median(Company.pluck(:flsa_cl_violtn_count))
+  end
+
+  def h1b_violtn_cnt_national
+    median(Company.pluck(:h1b_violtn_cnt))
+  end
+
   def fmla_count_by_industry
     industry = Industry.find_by_id(industry_id)
     companies = industry.companies
@@ -27,7 +44,7 @@ class Company < ActiveRecord::Base
     companies.each do |company|
       avg_penalty << fmla_violtn_cnt
     end
-    median(avg_penalty) 
+    median(avg_penalty)
   end
 
   def avg_cl_by_industry
@@ -37,7 +54,7 @@ class Company < ActiveRecord::Base
     companies.each do |company|
       avg_penalty << company.flsa_cl_violtn_count
     end
-    median(avg_penalty) 
+    median(avg_penalty)
   end
 
   def avg_h1b_by_industry
@@ -47,7 +64,7 @@ class Company < ActiveRecord::Base
     companies.each do |company|
       avg_penalty << company.h1b_violtn_cnt
     end
-    median(avg_penalty) 
+    median(avg_penalty)
   end
 
 
@@ -56,5 +73,5 @@ class Company < ActiveRecord::Base
     len = sorted.length
     return (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
   end
-              
+
 end
