@@ -141,7 +141,7 @@ var MapView = {
 + company.trade_name + "<hr class='divider'></h4> <span class='fade'>" 
 + company["street"] + "<br/>" + company["city"] + ", " 
 + company["state"] + " " + company["zip"] + "</span> <h2 class='popup-grade'>" + company.letter_grade + "</h2></div>" +
-"<a class='more-info' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
+"<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
     infowindow.setContent(contentString);
     infowindow.open(this.map, marker);
   },
