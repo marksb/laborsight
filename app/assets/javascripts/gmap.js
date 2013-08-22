@@ -12,11 +12,44 @@ var MapView = {
     var that = this;
 
     this.markers = [];
+
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     this.placesMarkers = [];
 
-    this.setUserLocation();
+    this.geolocateUser({success: function(coords) {
+      that.map.setCenter(coords);
+
+      that.getNeighborhood(coords, {
+        success: function(neighborhood_info) {
+          that.getNeighborhoodGrade(neighborhood_info);
+        },
+        failure: function() {
+          alert("Reverse geocoding failed!");
+        }
+      });
+    }});
+
+      google.maps.event.addListener(that.map, 'idle', function() {
+        that.getCompanies();
+      });
     this.search();
+  },
+  getNeighborhoodGrade: function(neighborhood_info) {
+    var that = this;
+    var data = neighborhood_info;
+    $.get('/companies/neighborhood', data, function(response) {
+      that.renderInitialNeighborhoodGrade(response);
+    });
+  },
+  renderInitialNeighborhoodGrade: function(data) {
+    var that = this;
+    var hoodData = "<p>" + data.neighborhood + "<p>" +
+                   "<p>" + data.grade + "<p>";
+    $("#hood-info").append(hoodData);
+  },
+  getCompanies: function() {
+    var bounds = this.getTheBounds();
+    var that = this;
 
     google.maps.event.addListener(this.map, 'idle', function() {
       that.loadData();
@@ -42,7 +75,6 @@ var MapView = {
 
     return marker;
   },
-
   search: function() {
 
     var that = this;
@@ -98,7 +130,9 @@ var MapView = {
   },
   renderMarker: function(company) {
     var that = this;
+
     var customPin = '/assets/maps/markerRed.png';
+
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
@@ -116,7 +150,6 @@ var MapView = {
     });
     return marker;
   },
-
   clearMapMarkers: function() {
     var that = this;
       if(that.markers && that.markers.length !== 0){
@@ -130,6 +163,20 @@ var MapView = {
     var that = this;
     that.markers = [];
   },
+  getNeighborhood: function(latlng, callbacks) {
+    geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({latLng: latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var neighborhood = results[0]["address_components"][2]["short_name"];
+        var zip          = results[0]["address_components"][7]["short_name"];
+
+        callbacks.success({neighborhood: neighborhood, zip: zip});
+      } else {
+        return {error: "Not Available"};
+      }
+    });
+  },
   showInfoBox: function(company, marker) {
     windowOptions = {
         content: contentString,
@@ -137,9 +184,9 @@ var MapView = {
         maxWidth: 500,
       };
     var infowindow = new google.maps.InfoWindow(windowOptions);
-    var contentString = "<div id='info-box' class='title-case'><h4>" 
-+ company.trade_name + "<hr class='divider'></h4> <span class='fade'>" 
-+ company["street"] + "<br/>" + company["city"] + ", " 
+    var contentString = "<div id='info-box' class='title-case'><h4>"
++ company.trade_name + "<hr class='divider'></h4> <span class='fade'>"
++ company["street"] + "<br/>" + company["city"] + ", "
 + company["state"] + " " + company["zip"] + "</span> <h2 class='popup-grade'>" + company.letter_grade + "</h2></div>" +
 "<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
     infowindow.setContent(contentString);
@@ -147,7 +194,6 @@ var MapView = {
   },
   getTheBounds: function() {
     var bounds = this.map.getBounds();
-
     var neLat = this.map.getBounds().getNorthEast().lat();
     var neLng = this.map.getBounds().getNorthEast().lng();
     var seLat = this.map.getBounds().getSouthWest().lat();
@@ -157,13 +203,13 @@ var MapView = {
 
     return {ne: {lat: neLat, lng: neLng}, sw: {lat: seLat, lng: seLng}, center: {lat: centerLat, lng: centerLng} };
   },
-  setUserLocation: function() {
+  geolocateUser: function(callbacks) {
     var that = this;
     if(navigator.geolocation) {
       browserSupportFlag = true;
       navigator.geolocation.getCurrentPosition(function(position) {
-        initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-        that.map.setCenter(initialLocation);
+        var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        callbacks.success(coords);
       }, function() {
         handleNoGeolocation(browserSupportFlag);
       });

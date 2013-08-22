@@ -19,6 +19,5 @@ function stateOnClick(){
 
 $( document ).ready(function() {
   MapView.init();
-  myAccordion();
   stateOnClick();
 });
