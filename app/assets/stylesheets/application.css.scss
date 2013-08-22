@@ -52,7 +52,7 @@
 #side-bar {
   @include outer-container;
   @include span-columns(3);
-  @include pad(); 
+  @include pad();
   font-size: 80%;
   min-height: 100%;
   margin-bottom: -30px;
@@ -103,6 +103,77 @@
 #map-canvas {
   height: 100%;
 }
+
+//***** Search ******//
+#panel {
+  opacity: .7;
+  position: absolute;
+  right: 1.5%;
+  top: 1.75em;
+  z-index: 50;
+
+  #target {
+    @include background-image(url("/assets/maps/search.png"));
+    background-position: 4% 43%;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    padding:8px 17px 8px 40px;
+  }
+}
+
+.pac-container {
+  opacity: .7;
+}
+
+//***** Info Box ******//
+
+#info-box {
+  min-height: 100px;
+  height: 100%;
+  min-width: 200px;
+  padding: 10px 0;
+
+  h4 {
+    margin-bottom: 5px; 
+  }
+
+  span {
+    font-family: $base-font-family;
+    float: left;
+  }
+
+}
+
+.popup-address {
+  @extend .fade;
+  font-family: $base-font-family;
+  float: left;
+}
+
+.popup-grade {
+  background-color: $red;
+  color: $white;
+  float: right;
+  text-align: center;
+  margin: 2.35765%;
+  width: 40px;
+  height: 0;
+  padding-bottom: 40px;
+
+  span {
+    font-size: 10vh;
+    position: relative;
+    width: 100%;
+    top: 20%;
+  }
+}
+
+a.more-info, .gm-style .gm-style-iw a {
+  clear: both;
+  font-family: $header-font-family;
+  font-weight: 700;
+}
+
 
 //***** Profile ******//
 .action {
@@ -280,7 +351,7 @@ footer {
 
 //***** Chart ******//
 
-canvas{
+canvas {
   width: 100% !important;
   height: auto !important;
   max-width: 600px;
@@ -295,11 +366,11 @@ canvas{
 
 
 .arrow-down {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  
+
   border-top: 20px solid #f00;
 }
 
