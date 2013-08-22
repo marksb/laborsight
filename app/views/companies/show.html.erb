@@ -5,9 +5,17 @@
 <div class="profile">
   <div class="contact">
     <h1 class='page-title'><%= @company.trade_name %></h1>
+
+    <% if @company.address_id %>
     <p class='fade'><%= @company.address.street %>, <%= @company.address.city %>, <%= @company.address.state %>, <%= @company.address.zip %> </p>
+    <% end %>
+
     <p class='fade'>Inspected:  <%= @company.findings_start_date.strftime("%m-%d-%Y") %> to <%= @company.findings_end_date.strftime("%m-%d-%Y") %> </p>
-    <p>Industry: <%= Industry.find(@company.industry_id).naic_code_description %></p>
+
+    <% if @company.industry_id %>
+    <p class="fade">Industry: <%= Industry.find(@company.industry_id).naic_code_description %></p>
+    <% end %>
+
   </div>
 
   <h1 class='grade'><span><%= @company.assign_letter_grade %></span></h1>
