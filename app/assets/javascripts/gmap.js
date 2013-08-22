@@ -48,10 +48,13 @@ var MapView = {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      that.activeMarker = marker
+      if (that.oldMarker !== undefined) {
+        that.oldMarker.setIcon('/assets/markerRed.png');
+      }
+      that.activeMarker = marker;
       that.activeMarker.setIcon('/assets/marker2.png');
+      that.oldMarker = that.activeMarker;
       that.openSideBar(company);
-
     });
     return marker;
   },
