@@ -43,7 +43,7 @@ var MapView = {
   renderInitialNeighborhoodGrade: function(data) {
     var that = this;
     var hoodData = "<h3 class='hood'>" + data.neighborhood + "</h3>" +
-                   "<p class='side-grade'>" + data.grade + "</p>";
+                   "<h4 class='side-grade'>" + data.grade + "</h4>";
     $("#hood-info").append(hoodData);
   },
    renderPlaceMarker: function(place) {
