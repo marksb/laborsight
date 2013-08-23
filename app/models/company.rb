@@ -67,4 +67,15 @@ class Company < ActiveRecord::Base
   def median(array)
     return (array[(array.count - 1) / 2] + array[array.count / 2]) / 2.0
   end
+
+  def as_json(options={})
+    {id: id, 
+     street: address.street, 
+     city: address.city, 
+     state: address.state, 
+     zip: address.zip, 
+     longitude: address.longitude,
+     latitude: address.latitude }
+  end
+
 end
