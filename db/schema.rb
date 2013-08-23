@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819211412) do
+ActiveRecord::Schema.define(:version => 20130822233031) do
 
   create_table "addresses", :force => true do |t|
     t.string  "street"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20130819211412) do
   end
 
   add_index "companies", ["address_id"], :name => "index_companies_on_address_id"
+  add_index "companies", ["industry_id"], :name => "index_companies_on_industry_id"
 
   create_table "industries", :force => true do |t|
     t.integer  "naic_code"
