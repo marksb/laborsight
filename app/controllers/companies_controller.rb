@@ -57,9 +57,19 @@ include ApplicationHelper
     @company = Company.find(params[:id])
   end
 
-  def chart
+  def chart_industry
     @company = Company.find(params[:id])
-    render partial: 'chart'
+    render partial: 'chart_industry'
+  end
+
+  def chart_local
+    @company = Company.find(params[:id])
+    render partial: 'chart_local'
+  end
+
+  def chart_national
+    @company = Company.find(params[:id])
+    render partial: 'chart_national'
   end
 
 end
