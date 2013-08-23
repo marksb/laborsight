@@ -14,6 +14,34 @@
 
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+  <script>
+
+$('#twitter').sharrre({
+  share: {
+    twitter: true
+  },
+  enableHover: false,
+  enableTracking: true,
+  buttons: { twitter: {via: '_JulienH'}},
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('twitter');
+  }
+});
+
+$('#facebook').sharrre({
+  share: {
+    facebook: true
+  },
+  enableHover: false,
+  enableTracking: true,
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('facebook');
+  }
+});
+  </script>
+
   </head>
   <body>
     <%= yield %>
