@@ -70,6 +70,8 @@ class Company < ActiveRecord::Base
 
   def as_json(options={})
     {id: id, 
+     trade_name: trade_name,
+     letter_grade: assign_letter_grade,
      street: address.street, 
      city: address.city, 
      state: address.state, 
