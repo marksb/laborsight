@@ -40,15 +40,39 @@ class Company < ActiveRecord::Base
   end
 
   def fmla_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.fmla_violtn_cnt
+      end
+    end
+
+    median(total)
   end
 
   def flsa_cl_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.flsa_cl_violtn_count
+      end
+    end
+
+    median(total)
   end
 
   def h1b_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.h1b_violtn_cnt
+      end
+    end
+
+    median(total)
   end
 
   def fmla_count_by_industry
