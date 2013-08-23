@@ -28,9 +28,8 @@ var MapView = {
         }
       });
     }});
-
       google.maps.event.addListener(that.map, 'idle', function() {
-        that.getCompanies();
+        that.loadData();
       });
     this.search();
   },
@@ -46,14 +45,6 @@ var MapView = {
     var hoodData = "<p>" + data.neighborhood + "<p>" +
                    "<p>" + data.grade + "<p>";
     $("#hood-info").append(hoodData);
-  },
-  getCompanies: function() {
-    var bounds = this.getTheBounds();
-    var that = this;
-
-    google.maps.event.addListener(this.map, 'idle', function() {
-      that.loadData();
-    });
   },
    renderPlaceMarker: function(place) {
     var that = this;
@@ -92,23 +83,12 @@ var MapView = {
     google.maps.event.addListener(this.searchBox, 'places_changed', function() {
       var places = that.searchBox.getPlaces();
 
-      for (var i = 0, marker; marker = that.placesMarkers[i]; i++) {
-        marker.setMap(null);
-      };
-
-      placeMarkers = []
       var bounds = new google.maps.LatLngBounds();
 
-      for (var i = 0, place; place = places[i]; i++) {
-        var marker = new google.maps.Marker({
-          map: that.map,
-          title: place.name,
-          position: place.geometry.location
-        });
-        placeMarkers.push(that.renderPlaceMarker(place));
-        bounds.extend(place.geometry.location);
-      }
+      bounds.extend(places[0].geometry.location);
+
       that.map.fitBounds(bounds);
+      that.map.setZoom(15);
     });
 
     google.maps.event.addListener(this.map, 'bounds_changed', function() {
