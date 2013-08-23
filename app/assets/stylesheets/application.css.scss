@@ -56,6 +56,16 @@
   font-size: 80%;
   min-height: 100%;
   margin-bottom: -30px;
+    .logo {
+      color: $blue;
+      font-size: 3em;
+      font-weight: 700;
+    }
+
+    .tag {
+      color: $green;
+    }
+
     h3 {
       color: $blue;
       font-size: 1.5em;

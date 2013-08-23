@@ -11,10 +11,14 @@ body {
   }
 ::-moz-selection {
   background: $yellow; /* Firefox */
-}
+  }
 
 .title-case {
   text-transform: capitalize;
+}
+
+.italic {
+  font-style: oblique;
 }
 
 h1, h2, h3, h4, h5, h6 {
