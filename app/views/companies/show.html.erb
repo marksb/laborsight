@@ -33,7 +33,7 @@
     <div id="child-labor">
       <p class="fade">The federal child labor provisions, authorized by the Fair Labor Standards Act (FLSA) of 1938, also known as the child labor laws, were enacted to ensure that when young people work, the work is safe and does not jeopardize their health, well-being or educational opportunities.</p>
         <% if @company.flsa_cl_violtn_count == 0 && @company.flsa_cl_minor_count == 0 && @company.flsa_cmp_assd_amt == 0 %>
-        <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span>has no child labor violations.</h4>
+        <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span> has no child labor violations.</h4>
         <% else %>
         <table>
           <tr>
@@ -181,12 +181,10 @@
     <% end %>
 
     <ul id='state' class="chart">
-      TESST
       <a href="#"><canvas id="local-chart" width="800" height="600"></a></a>
     </ul>
 
     <ul id='national' class="chart">
-      YEP
       <a href="#"><canvas id="local-chart" width="800" height="600"></a></canvas></a>
     </ul>
 
