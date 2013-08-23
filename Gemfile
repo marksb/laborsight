@@ -17,8 +17,14 @@ gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
 
+gem 'dalli'
+
 # Location Geocoding
 gem 'geocoder'
+
+group :production do
+  gem 'memcachier'
+end
 
 group :development, :test do
   gem 'rspec-rails'
