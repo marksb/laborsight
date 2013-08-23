@@ -212,5 +212,7 @@ var MapView = {
 $(document).ready(function(){
   myTabs(); //Tabs MUST be called within this document.ready
   stateOnClick();
+  industryOnLoad();
+  renderChart();
 });
 

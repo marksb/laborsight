@@ -23,32 +23,74 @@ class Company < ActiveRecord::Base
 
   def fmla_violtn_cnt_national
     Rails.cache.fetch "national/fmla_violtn_cnt" do
-      median(Company.pluck(:fmla_violtn_cnt))
+      total = []
+
+      Company.all.each do |company|
+        total < company.fmla_violtn_cnt
+      end
+
+      median(total)
     end
   end
 
   def flsa_cl_violtn_cnt_national
     Rails.cache.fetch "national/flsa_cl_violtn_cnt" do
-      median(Company.pluck(:flsa_cl_violtn_count))
+       total = []
+
+      Company.all.each do |company|
+        total < company.fmla_violtn_cnt
+      end
+
+      median(total)
     end
   end
 
   def h1b_violtn_cnt_national
     Rails.cache.fetch "national/h1b_violtn_cnt" do
-      median(Company.pluck(:h1b_violtn_cnt))
+      total = []
+
+      Company.all.each do |company|
+        total < company.h1b_violtn_cnt
+      end
+
+      median(total)
     end
   end
 
   def fmla_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.fmla_violtn_cnt
+      end
+    end
+
+    median(total)
   end
 
   def flsa_cl_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.flsa_cl_violtn_count
+      end
+    end
+
+    median(total)
   end
 
   def h1b_violtn_cnt_local
-    # do not cache
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.h1b_violtn_cnt
+      end
+    end
+
+    median(total)
   end
 
   def fmla_count_by_industry
