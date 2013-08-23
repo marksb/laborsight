@@ -221,8 +221,11 @@
 
   <div class="action jumbo">
     <h1>Take Action</h1>
+    <a data-share="facebook" data-title="LaborSight" href='https://www.facebook.com/sharer/sharer.php?u=laborsight.com/companies/<%= @company.id %>'>Share on Facebook</a>
+
+    <a data-share="twitter" data-title="laborsight" data-link='http://www.laborsight.com/company/<%= @company.id %>' data-hashtags="laborsight" href='https://www.twitter.com/share?url=http://laborsight.com/companies/<%= @company.id %>'>Share on Twitter</a>
+
     <div class= 'social-action'>
-      <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
       <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
       <%= link_to image_tag("icons/facebook-circ.png", :class => "social-icon") %>
     </div>
