@@ -48,7 +48,6 @@ function renderChart(){
   });
 }
 
-$( document ).ready(function(){
+$(document).ready(function(){
   MapView.init();
-  stateOnClick();
 });
