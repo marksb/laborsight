@@ -43,8 +43,8 @@ var MapView = {
   },
   renderInitialNeighborhoodGrade: function(data) {
     var that = this;
-    var hoodData = "<p>" + data.neighborhood + "<p>" +
-                   "<p>" + data.grade + "<p>";
+    var hoodData = "<h3 class='hood'>" + data.neighborhood + "</h3>" +
+                   "<p class='side-grade'>" + data.grade + "</p>";
     $("#hood-info").append(hoodData);
   },
   getCompanies: function() {
