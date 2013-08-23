@@ -4,10 +4,18 @@
 
 <div class="profile">
   <div class="contact">
+
+    <% if @company.address_id %>
     <h1 class='page-title title-case'><%= @company.trade_name %></h1>
     <p class='fade'><%= @company.address.street %>, <%= @company.address.city %>, <%= @company.address.state %>, <%= @company.address.zip %> </p>
+    <% end %>
+
     <p class='fade'>Inspected:  <%= @company.findings_start_date.strftime("%m-%d-%Y") %> to <%= @company.findings_end_date.strftime("%m-%d-%Y") %> </p>
-    <p>Industry: <%= Industry.find(@company.industry_id).naic_code_description %></p>
+
+    <% if @company.industry_id %>
+    <p class="fade">Industry: <%= Industry.find(@company.industry_id).naic_code_description %></p>
+    <% end %>
+
   </div>
 
   <h1 class='grade'><span><%= @company.assign_letter_grade %></span></h1>
@@ -21,11 +29,11 @@
       <li><a href="#work-visas">Work Visas</a></li>
       <li><a href="#migrant">MSPA</a></li>
     </ul>
-    
+
     <div id="child-labor">
       <p class="fade">The federal child labor provisions, authorized by the Fair Labor Standards Act (FLSA) of 1938, also known as the child labor laws, were enacted to ensure that when young people work, the work is safe and does not jeopardize their health, well-being or educational opportunities.</p>
         <% if @company.flsa_cl_violtn_count == 0 && @company.flsa_cl_minor_count == 0 && @company.flsa_cmp_assd_amt == 0 %>
-        <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span>has no child labor violations.</h4>
+        <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span> has no child labor violations.</h4>
         <% else %>
         <table>
           <tr>
@@ -46,7 +54,7 @@
 
     <div id="backwages">
       <p class="fade">
-        A common remedy for wage violations is an order that the employer make up the difference between what the employee was paid and the amount he or she should have been paid. The amount of this sum is often referred to as "back pay." 
+        A common remedy for wage violations is an order that the employer make up the difference between what the employee was paid and the amount he or she should have been paid. The amount of this sum is often referred to as "back pay."
       </p>
       <% if @company.flsa_15a3_bw_atp_amt == 0 && @company.bw_atp_amt == 0 && @company.flsa_mw_bw_atp_amt == 0 && @company.flsa_ot_bw_atp_amt == 0 %>
       <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span> has paid no back wages.</h4>
@@ -74,7 +82,7 @@
 
   <div id="fmla">
     <p class="fade">
-    The Family & Medical Leave Act entitles eligible employees of covered employers to take unpaid, job-protected leave for specified family and medical reasons with continuation of group health insurance coverage under the same terms and conditions as if the employee had not taken leave. 
+    The Family & Medical Leave Act entitles eligible employees of covered employers to take unpaid, job-protected leave for specified family and medical reasons with continuation of group health insurance coverage under the same terms and conditions as if the employee had not taken leave.
     </p>
     <% if @company.fmla_violtn_cnt == 0 && @company.fmla_bw_atp_amt == 0 && @company.fmla_ee_atp_cnt == 0 && @company.fmla_cmp_assd_amt == 0 %>
     <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span> has no Family & Medical Leave Act Violations.</h4>
@@ -100,8 +108,8 @@
     <% end %>
   </div>
 
-    <div id="work-visas"> 
-      <p class="fade">The H-1B visa is a non-immigrant visa that allows business professionals to work in the United States for a specific amount of time. The purpose of the H-1B visa is to give U.S. employers the opportunity to hire foreign professionals if a U.S. citizen or resident is not available. 
+    <div id="work-visas">
+      <p class="fade">The H-1B visa is a non-immigrant visa that allows business professionals to work in the United States for a specific amount of time. The purpose of the H-1B visa is to give U.S. employers the opportunity to hire foreign professionals if a U.S. citizen or resident is not available.
       </p>
       <% if @company.h1b_violtn_cnt == 0 && @company.h1b_bw_atp_amt == 0 && @company.h1b_ee_atp_cnt == 0 && @company.h1b_cmp_assd_amt == 0 %>
         <h4 class="green good-standing"><span class="title-case"><%= @company.trade_name %></span> has no violations related to non-immigrant work visas.</h4>
@@ -156,11 +164,21 @@
 
   </div>
 
+  <h1 class="stats-header">Side-By-Side</h1>
+
   <div id="slider" class="slider data" data-id='<%= @company.id %>'>
-    
-    <ul id='local' class="chart">
+
+    <% if @company.industry_id %>
+    <ul id='industry' class="chart">
+      <script type="text/javascript">
+        var id = <%= @company.id %>;
+        getCompanyInfo(id);
+      </script>
       <a href="#"> <canvas id="local-chart" width="800" height="600"></a>
     </ul>
+    <% else %>
+    <h6 class="center notice">No Industry data was provided for this company.</h6>
+    <% end %>
 
     <ul id='state' class="chart">
       <a href="#"><canvas id="local-chart" width="800" height="600"></a></a>
@@ -171,15 +189,15 @@
     </ul>
 
     <nav>
-      <a href="#" id='local' class='selected'><h6>By Industry</h6></a>
-      <a href="#" id='state' ><h6>Local</h6></a>
+      <a href="#" id='industry' class='selected'><h6>By Industry</h6></a>
+      <a href="#" id='state' ><h6>Your Neighborhood</h6></a>
       <a href="#" id='national'><h6>National</h6></a>
     </nav>
   </div>
 
   <div class="stats foursquare">
     <h3 class='service-title'>Foursquare</h3>
-    <div class='service-stats'> 
+    <div class='service-stats'>
       <h6>Check-Ins:</h6>
       <h6>Users:</h6>
     </div>
@@ -187,35 +205,32 @@
 
   <div class="stats yelp">
     <h3 class='service-title'>Yelp</h3>
-      <div class='service-stats'> 
+      <div class='service-stats'>
         <h6>Check-Ins:</h6>
-        <h6>Users:</h6>  
+        <h6>Users:</h6>
       </div>
   </div>
 
   <div class="stats foursquare">
     <h3 class='service-title'>Facebook</h3>
-      <div class='service-stats'> 
+      <div class='service-stats'>
         <h6>Check-Ins:</h6>
         <h6>Users:</h6>
       </div>
   </div>
-  
+
   <div class="action jumbo">
     <h1>Take Action</h1>
-    <div class= 'social-action'> 
+    <div class= 'social-action'>
       <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
       <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
       <%= link_to image_tag("icons/facebook-circ.png", :class => "social-icon") %>
     </div>
   </div>
 </div>
-  
+
 <footer>
   <p>footer</p>
 </footer>
 
-<script type="text/javascript">
-  var id = <%= @company.id %>;
-  getCompanyInfo(id);
-</script>
+
