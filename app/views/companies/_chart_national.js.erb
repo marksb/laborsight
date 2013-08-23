@@ -1,0 +1,30 @@
+function createChart(){
+
+  var ctx = document.getElementById("local-chart").getContext("2d");
+
+  var data = {
+      labels : ["Child Labor Violations", "FMLA Violations", "Work Visa Violations"],
+      datasets : [
+                  {
+                      fillColor : "rgba(221, 86, 66, 0.5)",
+                      strokeColor : "rgba(221, 86, 66, 1)",
+                      data : [<%= @company.flsa_cl_violtn_count %>, <%= @company.fmla_violtn_cnt %>, <%= @company.h1b_violtn_cnt %>] ,
+                  },
+                  {
+                      fillColor : "rgba(93, 124, 168, 0.5)",
+                      strokeColor : "rgba(93, 124, 168, 1)",
+                      data : [<%= @company.flsa_cl_violtn_cnt_national %>, <%= @company.fmla_violtn_cnt_national %>, <%= @company.h1b_violtn_cnt_national %>],
+                  }
+                 ]
+            };
+
+  options = {
+      barDatasetSpacing : 15,
+      barValueSpacing: 40,
+      scaleFontFamily : "'Lato'",
+      scaleFontSize : 16,
+      scaleShowLabels : true
+  };
+
+    new Chart(ctx).Bar(data, options);
+ };
