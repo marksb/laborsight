@@ -27,6 +27,14 @@
   color: $green;
 }
 
+.red {
+  background-color: $red;
+}
+
+.blue {
+  background-color: $blue;
+}
+
 .yelp {
   color: $yelp;
 }
@@ -88,6 +96,18 @@
 
     td {
       border: none;
+    }
+
+    .side-grade {
+      background-color: $red;
+      color: $white;
+      font-size: 2.25em;
+      float: left;
+      text-align: center;
+      width: 40px;
+      height: 0;
+      margin-top: .25em;
+      padding-bottom: 40px;
     }
 }
 
@@ -223,7 +243,7 @@ footer {
   padding-bottom: 15%;
 
   span {
-    font-size: 10vh;
+    font-size: 12vh;
     position: relative;
     width: 100%;
     top: 20%;
@@ -319,7 +339,6 @@ footer {
   @include pad();
   clear: both;
   text-align: justify;
-  margin-bottom: 2em;
 
   ul li {
     @include span-columns(2.4);
@@ -467,4 +486,22 @@ canvas {
   border-width: 27px;
   left: 50%;
   margin-left: -27px;
+}
+
+.legend {
+  @include span-columns(6);
+  @include omega();
+  color: $medium-gray;
+  text-align: center;
+
+  h6 {
+    display: inline;
+  }
+}
+
+.red, .blue {
+  display: inline-block;
+  height: .75em;
+  margin-right: .5em;
+  width: .75em;
 }
