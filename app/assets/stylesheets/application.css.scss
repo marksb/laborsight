@@ -56,6 +56,16 @@
   font-size: 80%;
   min-height: 100%;
   margin-bottom: -30px;
+    .logo {
+      color: $blue;
+      font-size: 3em;
+      font-weight: 700;
+    }
+
+    .tag {
+      color: $medium-gray;
+    }
+
     h3 {
       color: $blue;
       font-size: 1.5em;
@@ -66,7 +76,7 @@
     }
 
     div {
-      margin: 2em 0;
+      margin: 1em 0;
     }
 
     tr:nth-child(odd) { 
