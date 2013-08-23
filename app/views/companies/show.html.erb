@@ -1,5 +1,5 @@
 <div class="return">
-  <h5><%= link_to "Map", controller: "maps" %></h5>
+  <h5><%= link_to "Map", controller: "maps", class: "return" %></h5>
 </div>
 
 <div class="profile">
@@ -165,6 +165,14 @@
   </div>
 
   <h1 class="stats-header">Side-By-Side</h1>
+  <div class="legend">
+    <div class="red"></div>
+    <h6><%= @company.trade_name %></h6>
+  </div>
+  <div class="legend">
+    <div class="blue"></div>
+    <h6>Comparison</h6>
+  </div>
 
   <div id="slider" class="slider data" data-id='<%= @company.id %>'>
 
@@ -194,7 +202,7 @@
       <a href="#" id='national'><h6>National</h6></a>
     </nav>
   </div>
-
+<!-- 
   <div class="stats foursquare">
     <h3 class='service-title'>Foursquare</h3>
     <div class='service-stats'>
@@ -218,16 +226,20 @@
         <h6>Users:</h6>
       </div>
   </div>
-
+ -->
   <div class="action jumbo">
     <h1>Take Action</h1>
-    <a data-share="facebook" data-title="LaborSight" href='https://www.facebook.com/sharer/sharer.php?u=laborsight.com/companies/<%= @company.id %>'>Share on Facebook</a>
-
-    <a data-share="twitter" data-title="laborsight" data-link='http://www.laborsight.com/company/<%= @company.id %>' data-hashtags="laborsight" href='https://www.twitter.com/share?url=http://laborsight.com/companies/<%= @company.id %>'>Share on Twitter</a>
 
     <div class= 'social-action'>
-      <%= link_to image_tag("icons/twitter-circ.png", :class => "social-icon") %>
-      <%= link_to image_tag("icons/facebook-circ.png", :class => "social-icon") %>
+
+      <a data-share="twitter" data-title="laborsight" data-link='http://www.laborsight.com/company/<%= @company.id %>' data-hashtags="laborsight" href='https://www.twitter.com/share?url=http://laborsight.com/companies/<%= @company.id %>' target="_blank">
+        <%= image_tag("icons/twitter-circ.png", :class => "social-icon") %>
+      </a>
+
+      <a data-share="facebook" data-title="LaborSight" href='https://www.facebook.com/sharer/sharer.php?u=laborsight.com/companies/<%= @company.id %>' target="_blank">
+        <%= image_tag("icons/facebook-circ.png", :class => "social-icon") %>
+      </a>
+
     </div>
   </div>
 </div>
