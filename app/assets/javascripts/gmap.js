@@ -14,6 +14,11 @@ var MapView = {
     this.markers = [];
 
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    this.infoWindow = new google.maps.InfoWindow({
+      content: "",
+      size: new google.maps.Size(500,100),
+      maxWidth: 500,
+    });
     this.placesMarkers = [];
 
     this.geolocateUser({success: function(coords) {
@@ -27,7 +32,8 @@ var MapView = {
           alert("Reverse geocoding failed!");
         }
       });
-    }});
+    }
+  });
     google.maps.event.addListener(that.map, 'idle', function() {
       that.loadData();
     });
@@ -61,15 +67,12 @@ var MapView = {
         maxWidth: 300
       };
       var infoWindow = new google.maps.InfoWindow(windowOptions);
-      infoWindow.open(that.map, this);
     });
 
     return marker;
   },
   search: function() {
-
     var that = this;
-
     var input = (document.getElementById('target'));
     //var autocomplete = new google.maps.places.Autocomplete(input, options);
 
@@ -158,19 +161,15 @@ var MapView = {
     });
   },
   showInfoBox: function(company, marker) {
-    windowOptions = {
-      content: contentString,
-      size: new google.maps.Size(500,100),
-      maxWidth: 500,
-    };
-    var infowindow = new google.maps.InfoWindow(windowOptions);
+    var that = this;
+    
     var contentString = "<div id='info-box' class='title-case'><h4>"
     + company.trade_name + "<hr class='divider'></h4> <span class='fade'>"
     + company["street"] + "<br/>" + company["city"] + ", "
     + company["state"] + " " + company["zip"] + "</span> <h2 class='popup-grade'>" + company.letter_grade + "</h2></div>" +
     "<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
-    infowindow.setContent(contentString);
-    infowindow.open(this.map, marker);
+    that.infoWindow.setContent(contentString);
+    that.infoWindow.open(this.map, marker);
   },
   getTheBounds: function() {
     var bounds = this.map.getBounds();
