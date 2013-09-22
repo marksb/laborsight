@@ -2,6 +2,8 @@ var MapView = {
   init: function() {
     var mapOptions = {
       zoom: 10,
+      maxZoom: 15,
+      minZoom: 4,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: style,
       disableDefaultUI: true,
