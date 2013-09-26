@@ -31,6 +31,12 @@ var MapView = {
       google.maps.event.addListener(that.map, 'idle', function() {
         that.loadData();
       });
+
+    var zoomDiv = document.createElement('div');
+    var renderZoomControls = new ZoomControl(zoomDiv, this.map);
+    zoomDiv.index = 1;
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(zoomDiv);
+
     this.search();
   },
   getNeighborhoodGrade: function(neighborhood_info) {
