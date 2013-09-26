@@ -25,7 +25,7 @@ function ZoomControl(div, map) {
   // Set text for the zoom out button.
   var zoomoutText = document.createElement('div');
   zoomoutText.innerHTML = '<strong>-</strong>';
-  zoomoutText.style.fontSize = '40px';
+  zoomoutText.style.fontSize = '30px';
   zoomoutText.style.marginTop = '3px';
   zoomoutText.style.textAlign = 'center';
   zoomoutText.style.color = "#9e9e9e"
@@ -43,7 +43,6 @@ function ZoomControl(div, map) {
   var zoominText = document.createElement('div');
   zoominText.innerHTML = '<strong>+</strong>';
   zoominText.style.fontSize = '30px';
-  // zoominText.style.marginTop = '2px';
   zoominText.style.textAlign = 'center';
   zoominText.style.color = "#9e9e9e"
   zoomin.appendChild(zoominText);
