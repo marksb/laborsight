@@ -3,6 +3,7 @@ function ZoomControl(div, map) {
   // Get the control DIV. We'll attach our control UI to this DIV.
   var controlDiv = div;
 
+  // Set CSS for the controls.
   controlDiv.style.margin = '28px 0px 0px 22px';
   controlDiv.style.cursor = 'pointer';
   controlDiv.style.border = "1px solid #9e9e9e"
@@ -13,7 +14,6 @@ function ZoomControl(div, map) {
   controlDiv.style.height = '36px';
   controlDiv.style.width = '72px';
 
-  // Set CSS for the control border.
   var zoomout = document.createElement('div');
   zoomout.title = 'Click to zoom out';
   zoomout.style.display = "inline-block"
@@ -22,7 +22,6 @@ function ZoomControl(div, map) {
   zoomout.style.height = '100%';
   controlDiv.appendChild(zoomout);
 
-  // Set text for the zoom out button.
   var zoomoutText = document.createElement('div');
   zoomoutText.innerHTML = '<strong>-</strong>';
   zoomoutText.style.fontSize = '30px';
@@ -31,7 +30,6 @@ function ZoomControl(div, map) {
   zoomoutText.style.color = "#9e9e9e"
   zoomout.appendChild(zoomoutText);
 
-  // Set CSS for the setHome control border.
   var zoomin = document.createElement('div');
   zoomin.title = 'Click to zoom in';
   zoomin.style.display = "inline-block"
@@ -39,7 +37,6 @@ function ZoomControl(div, map) {
   zoomin.style.height = '100%';
   controlDiv.appendChild(zoomin);
 
-  // Set CSS for the control interior.
   var zoominText = document.createElement('div');
   zoominText.innerHTML = '<strong>+</strong>';
   zoominText.style.fontSize = '30px';
@@ -47,8 +44,7 @@ function ZoomControl(div, map) {
   zoominText.style.color = "#9e9e9e"
   zoomin.appendChild(zoominText);
 
-  // Setup the click event listener for Home:
-  // simply set the map to the control's current home property.
+  // Setup the click event listeners for zoom-in, zoom-out:
   google.maps.event.addDomListener(zoomout, 'click', function() {
    var currentZoomLevel = map.getZoom();
    if(currentZoomLevel != 0){
