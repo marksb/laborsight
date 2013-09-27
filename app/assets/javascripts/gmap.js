@@ -117,8 +117,8 @@ var MapView = {
   renderMarker: function(company) {
     var that = this;
 
-    var customPin = '/assets/maps/markerRed.png';
-
+    var customPin = new CustomPin(company["code"]).getImage();
+  
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,

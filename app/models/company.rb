@@ -105,6 +105,11 @@ class Company < ActiveRecord::Base
     industry.h1b_violtn_cnt
   end
 
+  def naic_code
+    return 2488 if self.industry_id == nil
+    self.industry.naic_code
+  end
+
   # TODO: move to module
   def median(array)
     return (array[(array.count - 1) / 2] + array[array.count / 2]) / 2.0
@@ -112,6 +117,7 @@ class Company < ActiveRecord::Base
 
   def as_json(options={})
     {id: id, 
+     code: naic_code,
      trade_name: trade_name,
      letter_grade: assign_letter_grade,
      street: address.street, 
