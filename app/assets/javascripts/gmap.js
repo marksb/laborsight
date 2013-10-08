@@ -1,11 +1,11 @@
 var MapView = {
   init: function() {
     var mapOptions = {
-        zoom: 10,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: style,
-        disableDefaultUI: true,
-        scaleControlOptions: {
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      styles: style,
+      disableDefaultUI: true,
+      scaleControlOptions: {
       }
     };
 
@@ -14,6 +14,11 @@ var MapView = {
     this.markers = [];
 
     this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    this.infoWindow = new google.maps.InfoWindow({
+      content: "",
+      size: new google.maps.Size(500,100),
+      maxWidth: 500,
+    });
     this.placesMarkers = [];
 
     this.geolocateUser({success: function(coords) {
@@ -27,10 +32,11 @@ var MapView = {
           alert("Reverse geocoding failed!");
         }
       });
-    }});
-      google.maps.event.addListener(that.map, 'idle', function() {
-        that.loadData();
-      });
+    }
+  });
+    google.maps.event.addListener(that.map, 'idle', function() {
+      that.loadData();
+    });
     this.search();
   },
   getNeighborhoodGrade: function(neighborhood_info) {
@@ -43,10 +49,10 @@ var MapView = {
   renderInitialNeighborhoodGrade: function(data) {
     var that = this;
     var hoodData = "<h3 class='hood'>" + data.neighborhood + "</h3>" +
-                   "<h4 class='side-grade'>" + data.grade + "</h4>";
+    "<h4 class='side-grade'>" + data.grade + "</h4>";
     $("#hood-info").append(hoodData);
   },
-   renderPlaceMarker: function(place) {
+  renderPlaceMarker: function(place) {
     var that = this;
     var marker = new google.maps.Marker({
       map: that.map,
@@ -61,15 +67,12 @@ var MapView = {
         maxWidth: 300
       };
       var infoWindow = new google.maps.InfoWindow(windowOptions);
-        infoWindow.open(that.map, this);
-      });
+    });
 
     return marker;
   },
   search: function() {
-
     var that = this;
-
     var input = (document.getElementById('target'));
     //var autocomplete = new google.maps.places.Autocomplete(input, options);
 
@@ -132,12 +135,12 @@ var MapView = {
   },
   clearMapMarkers: function() {
     var that = this;
-      if(that.markers && that.markers.length !== 0){
+    if(that.markers && that.markers.length !== 0){
       for(var i = 0; i < that.markers.length; ++i){
-          that.markers[i].setMap(null);
+        that.markers[i].setMap(null);
       }
     }
-   that.markers = [];
+    that.markers = [];
   },
   deleteOverlays: function() {
     var that = this;
@@ -158,19 +161,15 @@ var MapView = {
     });
   },
   showInfoBox: function(company, marker) {
-    windowOptions = {
-        content: contentString,
-        size: new google.maps.Size(500,100),
-        maxWidth: 500,
-      };
-    var infowindow = new google.maps.InfoWindow(windowOptions);
+    var that = this;
+    
     var contentString = "<div id='info-box' class='title-case'><h4>"
     + company.trade_name + "<hr class='divider'></h4> <span class='fade'>"
     + company["street"] + "<br/>" + company["city"] + ", "
     + company["state"] + " " + company["zip"] + "</span> <h2 class='popup-grade'>" + company.letter_grade + "</h2></div>" +
-"<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
-    infowindow.setContent(contentString);
-    infowindow.open(this.map, marker);
+    "<a class='more-info title-case' href='/companies/" + company['id'] + "' alt='More information on" + company['trade_name'] + "'> More information on " + company['trade_name'] + "</a>";
+    that.infoWindow.setContent(contentString);
+    that.infoWindow.open(this.map, marker);
   },
   getTheBounds: function() {
     var bounds = this.map.getBounds();
@@ -191,26 +190,15 @@ var MapView = {
         var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         callbacks.success(coords);
       }, function() {
-        handleNoGeolocation(browserSupportFlag);
+        var coords = new google.maps.LatLng(38.91775, -77.03624);
+        callbacks.success(coords);
       });
-    }
-  // Browser doesn't support Geolocation
-    else {
-      browserSupportFlag = false;
-      handleNoGeolocation(browserSupportFlag);
-    }
-  },
-  handleNoGeoLocation: function(errorFlag) {
-    if (errorFlag === true) {
-      alert("Geolocation service failed.");
-    } else {
-      alert("Your browser doesn't support geolocation.");
     }
   }
 };
 
 $(document).ready(function(){
-  myTabs(); //Tabs MUST be called within this document.ready
+  myTabs(); // Tabs MUST be called within this document.ready
   stateOnClick();
   industryOnLoad();
   renderChart();
