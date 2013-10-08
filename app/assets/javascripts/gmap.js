@@ -2,6 +2,8 @@ var MapView = {
   init: function() {
     var mapOptions = {
       zoom: 10,
+      maxZoom: 15,
+      minZoom: 2,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: style,
       disableDefaultUI: true,
@@ -19,6 +21,7 @@ var MapView = {
       size: new google.maps.Size(500,100),
       maxWidth: 500,
     });
+
     this.placesMarkers = [];
 
     this.geolocateUser({success: function(coords) {
@@ -109,7 +112,12 @@ var MapView = {
         var company = $.parseJSON( response[i] );
         that.markers.push(that.renderMarker(company));
       }
+    that.markerClusterer = new MarkerClusterer(that.map, that.markers, {
+        gridSize: 100,
+        maxZoom: 14
+      });
     });
+
   },
   renderMarker: function(company) {
     var that = this;
