@@ -35,11 +35,16 @@ var MapView = {
           alert("Reverse geocoding failed!");
         }
       });
-    }
-  });
-    google.maps.event.addListener(that.map, 'idle', function() {
-      that.loadData();
-    });
+    }});
+      google.maps.event.addListener(that.map, 'idle', function() {
+        that.loadData();
+      });
+
+    var zoomDiv = document.createElement('div');
+    var renderZoomControls = new ZoomControl(zoomDiv, this.map);
+    zoomDiv.index = 1;
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(zoomDiv);
+
     this.search();
   },
   getNeighborhoodGrade: function(neighborhood_info) {
@@ -122,8 +127,8 @@ var MapView = {
   renderMarker: function(company) {
     var that = this;
 
-    var customPin = '/assets/maps/markerRed.png';
-
+    var customPin = new CustomPin(company["code"]).getImage();
+  
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
       icon: customPin,
