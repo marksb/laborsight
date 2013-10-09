@@ -44,11 +44,7 @@ var MapView = {
     var renderZoomControls = new ZoomControl(zoomDiv, this.map);
     zoomDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(zoomDiv);
-    }
-  });
-    google.maps.event.addListener(that.map, 'idle', function() {
-      that.loadData();
-    });
+
     this.search();
   },
   getNeighborhoodGrade: function(neighborhood_info) {
