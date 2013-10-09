@@ -136,7 +136,7 @@
 
 //***** Search ******//
 #panel {
-  opacity: .7;
+  opacity: .8;
   position: absolute;
   right: 1.5%;
   top: 1.75em;
@@ -147,6 +147,8 @@
     background-position: 4% 43%;
     background-repeat: no-repeat;
     background-size: 20px 20px;
+    border: 1px solid #9e9e9e; 
+    border-radius: 3px;
     padding:8px 17px 8px 40px;
   }
 }
