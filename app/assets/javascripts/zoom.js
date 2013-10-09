@@ -14,35 +14,51 @@ function ZoomControl(div, map) {
   controlDiv.style.height = '36px';
   controlDiv.style.width = '72px';
 
-  var zoomout = document.createElement('div');
-  zoomout.title = 'Click to zoom out';
-  zoomout.style.display = "inline-block"
-  zoomout.style.borderRight = "1px solid #9e9e9e"
-  zoomout.style.width = '50%';
-  zoomout.style.height = '100%';
+  // var zoomout = document.createElement('div');
+  // zoomout.title = 'Click to zoom out';
+  // zoomout.style.display = 'inline-block';
+  // zoomout.style.borderRight = "1px solid #9e9e9e"
+  // zoomout.style.width = '50%';
+  // zoomout.style.height = '100%';
+  // zoomout.style.marginTop = '2px';
+  // controlDiv.appendChild(zoomout);
+
+  var zoomout = document.createElement('img');
+  zoomout.title = 'Click to zoom in';
+  zoomout.setAttribute('src', '/zoomout.png');
+  zoomout.style.display = 'inline-block';
+  zoomout.style.width = '17px';
+  zoomout.style.height = '17px';
+  zoomout.style.marginLeft = '8px';
+  zoomout.style.marginTop = '8px';
   controlDiv.appendChild(zoomout);
 
-  var zoomoutText = document.createElement('div');
-  zoomoutText.innerHTML = '<strong>-</strong>';
-  zoomoutText.style.fontSize = '30px';
-  zoomoutText.style.marginTop = '3px';
-  zoomoutText.style.textAlign = 'center';
-  zoomoutText.style.color = "#9e9e9e"
-  zoomout.appendChild(zoomoutText);
+  // var zoomoutText = document.createElement('div');
+  // zoomoutText.innerHTML = '<strong>-</strong>';
+  // zoomoutText.style.fontSize = '35px';
+  // zoomoutText.style.position = 'static';
+  // zoomoutText.style.fontWeight = '700';
+  // zoomoutText.style.textAlign = 'center';
+  // zoomoutText.style.color = "#9e9e9e"
+  // zoomout.appendChild(zoomoutText);
 
-  var zoomin = document.createElement('div');
+  var zoomin = document.createElement('img');
   zoomin.title = 'Click to zoom in';
-  zoomin.style.display = "inline-block"
-  zoomin.style.width = '50%';
-  zoomin.style.height = '100%';
+  zoomin.setAttribute('src', '/zoomin.png');
+  zoomin.style.display = 'inline-block';
+  zoomin.style.width = '17px';
+  zoomin.style.height = '17px';
+  zoomin.style.marginLeft = '17px';
+  zoomin.style.marginTop = '8px';
   controlDiv.appendChild(zoomin);
 
-  var zoominText = document.createElement('div');
-  zoominText.innerHTML = '<strong>+</strong>';
-  zoominText.style.fontSize = '30px';
-  zoominText.style.textAlign = 'center';
-  zoominText.style.color = "#9e9e9e"
-  zoomin.appendChild(zoominText);
+  // var zoominText = document.createElement('div');
+  // zoominText.innerHTML = '<strong>+</strong>';
+  // zoominText.style.fontSize = '25px';
+  // zoominText.style.position = 'static';
+  // zoominText.style.textAlign = 'center';
+  // zoominText.style.color = "#9e9e9e"
+  // zoomin.appendChild(zoominText);
 
   // Setup the click event listeners for zoom-in, zoom-out:
   google.maps.event.addDomListener(zoomout, 'click', function() {
