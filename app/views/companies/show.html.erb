@@ -1,3 +1,12 @@
+<% content_for :head do %> 
+  <meta property="og:site_name" content="LaborSight"/> 
+  <meta property="og:title"  content="US Department of Labor Violator: <%= @company.trade_name %>" /> 
+  <meta property="og:url" content="http://laborsight.com/companies/<%= @company.id %>"/>
+  <meta property="og:description" 
+  content="<%= @company.trade_name %> has violated US Department of Labor Law. CLick through to LaborSight for more information." />
+  <meta property="og:image"  content="http://laborsight.com/dol-logo.png" /> 
+<% end %>
+
 <div class="return">
   <h5><%= link_to "Map", controller: "maps", class: "return" %></h5>
 </div>
