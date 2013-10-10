@@ -9,6 +9,18 @@
 //   });
 // }
 
+
+function disclaimer() {
+  $("#osx-container").easyModal({
+    top: 0,
+    autoOpen: true,
+    overlayOpacity: 0.3,
+    overlayColor: "#333",
+    overlayClose: true,
+    closeOnEscape: true
+  });
+}
+
 function myTabs() {
   $( "#pure-stats" ).tabs({
   });
