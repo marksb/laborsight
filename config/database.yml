@@ -4,6 +4,7 @@ development:
   encoding: unicode
   database: dol-challenge_development
   pool: 5
+  host: localhost
 
 test:
   adapter: postgresql
@@ -11,6 +12,7 @@ test:
   database: dol-challenge_test
   min_messages: warning
   pool: 5
+  host: localhost
 
 production:
   adapter: postgresql

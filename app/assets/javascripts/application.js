@@ -2,9 +2,22 @@
 //= require jquery_ujs
 //= require_tree .
 
-function getCompanyInfo(id){
-  $.get('/companies/' + id + '/chart', function(response){
-    createChart();
+
+// function getCompanyInfo(id){
+//   $.get('/companies/' + id + '/chart_industry', function(response){
+//     createChart();
+//   });
+// }
+
+
+function disclaimer() {
+  $("#osx-container").easyModal({
+    top: 0,
+    autoOpen: true,
+    overlayOpacity: 0.3,
+    overlayColor: "#333",
+    overlayClose: true,
+    closeOnEscape: true
   });
 }
 
@@ -14,15 +27,39 @@ function myTabs() {
 };
 
 function stateOnClick(){
-  $('#state').on('click', function(event){
-    console.log("whatup");
+  $('#slider a').on('click', function(event){
     event.preventDefault();
+    $('#slider a').removeClass('selected');
     $(this).addClass('selected');
   });
 };
 
-$( document ).ready(function() {
+function industryOnLoad(){
+  $.get('/companies/' + id + '/chart_industry', function(response){
+    createChart();
+  });
+}
+
+function renderChart(){
+    $("nav #industry").on('click', function() {
+    $.get('/companies/' + id + '/chart_industry', function(response){
+    createChart();
+    });
+  });
+
+  $("nav #state").click(function() {
+    $.get('/companies/' + id + '/chart_local', function(response){
+    createChart();
+    });
+  });
+
+  $("nav #national").click(function() {
+    $.get('/companies/' + id + '/chart_national', function(response){
+    createChart();
+    });
+  });
+}
+
+$(document).ready(function(){
   MapView.init();
-  myAccordion();
-  stateOnClick();
 });

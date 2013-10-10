@@ -20,30 +20,112 @@ class Company < ActiveRecord::Base
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
 
-  def avg_penalty_by_industry
-    industry = Industry.find_by_id(industry_id)
-    companies = industry.companies
-    avg_penalty = []
-    companies.each do |company|
-      avg_penalty << company.bw_atp_amt
+
+  def fmla_violtn_cnt_national
+    Rails.cache.fetch "national/fmla_violtn_cnt" do
+      total = []
+
+      Company.all.each do |company|
+        total < company.fmla_violtn_cnt
+      end
+
+      median(total)
     end
-    median(avg_penalty) 
+  end
+
+  def flsa_cl_violtn_cnt_national
+    Rails.cache.fetch "national/flsa_cl_violtn_cnt" do
+       total = []
+
+      Company.all.each do |company|
+        total < company.fmla_violtn_cnt
+      end
+
+      median(total)
+    end
+  end
+
+  def h1b_violtn_cnt_national
+    Rails.cache.fetch "national/h1b_violtn_cnt" do
+      total = []
+
+      Company.all.each do |company|
+        total < company.h1b_violtn_cnt
+      end
+
+      median(total)
+    end
+  end
+
+  def fmla_violtn_cnt_local
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.fmla_violtn_cnt
+      end
+    end
+
+    median(total)
+  end
+
+  def flsa_cl_violtn_cnt_local
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.flsa_cl_violtn_count
+      end
+    end
+
+    median(total)
+  end
+
+  def h1b_violtn_cnt_local
+    total = []
+
+    Address.where(zip: self.address.zip).each do |address|
+      address.companies.each do |company|
+        total << company.h1b_violtn_cnt
+      end
+    end
+
+    median(total)
+  end
+
+  def fmla_count_by_industry
+    industry.fmla_count
   end
 
   def avg_cl_by_industry
-    industry = Industry.find_by_id(industry_id)
-    companies = industry.companies
-    avg_penalty = []
-    companies.each do |company|
-      avg_penalty << company.flsa_cl_violtn_count
-    end
-    median(avg_penalty) 
+    industry.cl
   end
 
-  def median(array)
-    sorted = array.sort
-    len = sorted.length
-    return (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+  def avg_h1b_by_industry
+    industry.h1b_violtn_cnt
   end
-              
+
+  def naic_code
+    return 2488 if self.industry_id == nil
+    self.industry.naic_code
+  end
+
+  # TODO: move to module
+  def median(array)
+    return (array[(array.count - 1) / 2] + array[array.count / 2]) / 2.0
+  end
+
+  def as_json(options={})
+    {id: id, 
+     code: naic_code,
+     trade_name: trade_name,
+     letter_grade: assign_letter_grade,
+     street: address.street, 
+     city: address.city, 
+     state: address.state, 
+     zip: address.zip, 
+     longitude: address.longitude,
+     latitude: address.latitude }
+  end
+
 end

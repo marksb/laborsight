@@ -68,6 +68,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    dalli (2.6.4)
     database_cleaner (1.1.1)
     debug_inspector (0.0.2)
     debugger (1.5.0)
@@ -133,6 +134,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (1.24)
     mini_portile (0.5.1)
@@ -256,6 +258,7 @@ DEPENDENCIES
   brakeman
   capybara
   coffee-rails (~> 3.2.1)
+  dalli
   database_cleaner
   debugger
   factory_girl_rails
@@ -268,6 +271,7 @@ DEPENDENCIES
   jquery-rails
   json
   launchy
+  memcachier
   neat
   pg
   pry
