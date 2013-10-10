@@ -12,7 +12,7 @@
 
 function disclaimer() {
   $("#osx-container").easyModal({
-    top: 100,
+    top: 0,
     autoOpen: true,
     overlayOpacity: 0.3,
     overlayColor: "#333",

@@ -25,6 +25,10 @@ body {
   font-style: oblique;
 }
 
+.small {
+  font-size: em(11);
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: $header-font-family;
   text-rendering: optimizelegibility; // Fix the character spacing for headings
