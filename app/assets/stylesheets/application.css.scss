@@ -35,6 +35,10 @@
   background-color: $blue;
 }
 
+.blue-text{
+  color: $blue;
+}
+
 .yelp {
   color: $yelp;
 }
@@ -55,6 +59,19 @@
   border-bottom: 1px dashed #999999;
   border-style: dashed;
 }
+
+//***** Modal ******//
+
+// #osx-modal-content, #osx-modal-data {display:none;}
+
+// /* Overlay */
+// #osx-overlay {background-color:#000;}
+
+// /* Container */
+#osx-container {background-color:#eee; color:#000; font: 16px/24px "Open Sans",Arial,sans-serif; text-align: justify; padding-bottom:4px; width:600px; -moz-border-radius-bottomleft:10px; -webkit-border-bottom-left-radius:10px; -moz-border-radius-bottomright:10px; -webkit-border-bottom-right-radius:6px; border-radius:0 0 6px 6px; -moz-box-shadow:0 0 64px #000; -webkit-box-shadow:0 0 64px #000; box-shadow:0 0 64px #000;}
+#osx-container a {color:#ddd;}
+// #osx-container h2 {margin:10px 0 6px;}
+#osx-container p {margin-bottom:10px;padding:10px;}
 
 //***** Map ******//
 #side-bar {
