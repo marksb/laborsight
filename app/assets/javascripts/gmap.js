@@ -126,12 +126,10 @@ var MapView = {
   },
   renderMarker: function(company) {
     var that = this;
-
-    var customPin = new CustomPin(company["code"]).getImage();
   
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(company["latitude"], company["longitude"]),
-      icon: customPin,
+      icon: '/assets/maps/markerRed.png',
       map: that.map
     });
 
