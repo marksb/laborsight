@@ -40,6 +40,10 @@ var MapView = {
         that.loadData();
       });
 
+      google.maps.event.addListener(that.map, 'zoom', function() {
+        that.loadData();
+      });
+
     var zoomDiv = document.createElement('div');
     var renderZoomControls = new ZoomControl(zoomDiv, this.map);
     zoomDiv.index = 1;
