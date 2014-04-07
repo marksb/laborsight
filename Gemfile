@@ -5,6 +5,7 @@ gem 'rails', '3.2.13'
 gem 'pg'
 gem 'json'
 gem 'always_verify_ssl_certificates'
+gem 'ruby-hmac'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -18,6 +19,7 @@ gem 'bourbon'
 gem 'neat'
 
 gem 'dalli'
+gem 'whenever'
 
 # Location Geocoding
 gem 'geocoder'
