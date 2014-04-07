@@ -36,4 +36,8 @@ DolChallenge::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  #Loads API secrets
+  SECRETS = YAML.load_file("#{Rails.root.to_s}/config/secrets.yml")[Rails.env]
+
 end
