@@ -9,9 +9,11 @@
     <%= csrf_meta_tags %>
     <%= content_for?(:head) ? yield(:head) : '' %>
 
+  <!-- Google Maps -->
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places">
   </script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/assets/javascripts/jquery.osx.js"></script>
