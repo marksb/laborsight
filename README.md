@@ -15,6 +15,9 @@ A web application that provides a graphical, map interface for consumers to view
 
 Contribution must follow defined [style guidelines](style.md).
 
+## Build Status
+[![Build Status](https://travis-ci.org/mbacksmeier/dol-challenge.svg?branch=development)](https://travis-ci.org/mbacksmeier/dol-challenge)
+
 ## Deployment
 
 Production code live at laborsight.com(http://www.laborsight.com/).

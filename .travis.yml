@@ -1,6 +1,15 @@
-bundler_args: --without development debug
+language: ruby
 
-# whitelist
 branches:
   only:
     - development
+
+bundler_args: --without development debug
+
+env:
+  - DB=postgresql
+
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
