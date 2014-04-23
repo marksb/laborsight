@@ -2,9 +2,18 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
+gem 'dalli'
 gem 'pg'
 gem 'json'
 gem 'always_verify_ssl_certificates'
+
+# Location Geocoding
+gem 'geocoder'
+
+# Frontend
+gem 'jquery-rails'
+gem 'bourbon'
+gem 'neat'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -12,18 +21,13 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# Frontend Framework
-gem 'jquery-rails'
-gem 'bourbon'
-gem 'neat'
-
-gem 'dalli'
-
-# Location Geocoding
-gem 'geocoder'
-
-group :production do
-  gem 'memcachier'
+group :debug do
+  gem 'debugger'
+  gem 'pry'
+  gem 'flay'
+  gem 'flog'
+  gem 'brakeman'
+  gem 'simplecov'
 end
 
 group :development, :test do
@@ -34,8 +38,10 @@ group :development, :test do
   gem 'spork'
   gem 'jasmine-rails'
   gem 'binding_of_caller'
-  gem 'debugger'
-  gem 'pry'
+end
+
+group :production do
+  gem 'memcachier'
 end
 
 group :test do
@@ -46,8 +52,4 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
-  gem 'flay'
-  gem 'flog'
-  gem 'brakeman'
-  gem 'simplecov'
 end
