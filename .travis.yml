@@ -1,0 +1,6 @@
+bundler_args: --without development debug
+
+# whitelist
+branches:
+  only:
+    - development
