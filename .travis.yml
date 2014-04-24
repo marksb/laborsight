@@ -6,13 +6,11 @@ branches:
 
 bundler_args: --without development debug
 
+gobal:
+  - RAILS_ENV=test
 env:
   - DB=postgresql
 
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:setup --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rake
-
-before_script:
-  - psql -c 'create database dol-challenge_test;' -U postgres
