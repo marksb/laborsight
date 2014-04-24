@@ -13,7 +13,6 @@ test:
   username: postgres
   min_messages: warning
   pool: 5
-  host: localhost
 
 production:
   adapter: postgresql

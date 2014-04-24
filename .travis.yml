@@ -12,5 +12,7 @@ env:
   - DB=postgresql
 
 script:
-  - bundle exec rake db:setup --trace
+  - bundle exec rake db:drop
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
   - bundle exec rake db:test:prepare
