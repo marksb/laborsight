@@ -10,6 +10,9 @@ gem 'always_verify_ssl_certificates'
 # Location Geocoding
 gem 'geocoder'
 
+#Yelp
+gem 'yelp', require: 'yelp'
+
 # Frontend
 gem 'jquery-rails'
 gem 'bourbon'
