@@ -20,6 +20,21 @@ class Company < ActiveRecord::Base
                   :industry_id, :mspa_violtn_cnt, :mspa_bw_atp_amt, :mspa_ee_atp_cnt, :mspa_cmp_assd_amt, :fmla_violtn_cnt, :fmla_bw_atp_amt,
                   :fmla_ee_atp_cnt, :fmla_cmp_assd_amt, :h1b_violtn_cnt, :h1b_bw_atp_amt, :h1b_ee_atp_cnt, :h1b_cmp_assd_amt
 
+  def yelp
+    # coordinates = { latitude: self.address.latitude, longitude: self.address.longitude }
+    # response = Yelp.client.search_by_coordinates(coordinates)
+    search_by = { term: self.trade_name,
+                  limit: 1
+    }
+    response = Yelp.client.search(self.address.full_street_address, search_by)
+    biz = response.businesses[0]
+    if biz.location.postal_code != self.address.zip
+        return "No results"
+    else
+        [biz.name, biz.rating, biz.location.display_address]
+    end
+    # response = Yelp.client.business('Metro/Smartbar')
+  end
 
   def fmla_violtn_cnt_national
     Rails.cache.fetch "national/fmla_violtn_cnt" do
@@ -116,14 +131,14 @@ class Company < ActiveRecord::Base
   end
 
   def as_json(options={})
-    {id: id, 
+    {id: id,
      code: naic_code,
      trade_name: trade_name,
      letter_grade: assign_letter_grade,
-     street: address.street, 
-     city: address.city, 
-     state: address.state, 
-     zip: address.zip, 
+     street: address.street,
+     city: address.city,
+     state: address.state,
+     zip: address.zip,
      longitude: address.longitude,
      latitude: address.latitude }
   end

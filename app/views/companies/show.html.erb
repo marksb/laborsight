@@ -29,6 +29,9 @@
 
   <h1 class='grade'><span><%= @company.assign_letter_grade %></span></h1>
 
+  <h1 class='stats-header'>Yelp Review</h1>
+  <%= @company.yelp %>
+
   <h1 class="stats-header">Company Statistics</h1>
   <div id="pure-stats">
     <ul>
